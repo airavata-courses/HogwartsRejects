@@ -17,12 +17,12 @@ import Input from "@material-ui/core/Input";
 import EmailIcon from "@material-ui/icons/Email";
 import IconButton from "@material-ui/core/IconButton";
 import LockIcon from "@material-ui/icons/Lock";
-
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 const useStyles = makeStyles(theme => ({
   root: {
     width: "80%",
     margin: "auto",
-    marginTop: "20vh",
+    marginTop: "20vh"
   },
   margin: {
     margin: theme.spacing(3),
@@ -45,8 +45,8 @@ const useStyles = makeStyles(theme => ({
   },
   gray: {
     backgroundColor: "#f0f0f0"
-  },
-}))
+  }
+}));
 function LogInBox(props) {
   const classes = useStyles();
   const responseGoogle = response => {
@@ -58,7 +58,8 @@ function LogInBox(props) {
   const [user, setUser] = useState({
     email: "",
     password: "",
-    showPassword: ""
+    showPassword: "",
+    name: ""
   });
   const handleChange = prop => event => {
     setUser({ ...user, [prop]: event.target.value });
@@ -71,13 +72,11 @@ function LogInBox(props) {
   const handleMouseDownPassword = event => {
     event.preventDefault();
   };
-  const handleLogin = event =>{
+  const handleRegister = event => {
     console.log(user);
-  } 
+  };
   return (
-<div>
-       
-
+    <div>
       <Card className={classes.root}>
         <CardContent>
           <Typography
@@ -85,7 +84,7 @@ function LogInBox(props) {
             color="textSecondary"
             gutterBottom
           >
-            Sign in with
+            Sign up with
           </Typography>
           <div
             style={{
@@ -112,8 +111,24 @@ function LogInBox(props) {
             color="textSecondary"
             gutterBottom
           >
-            Or sign in with Credentials
+            Or sign up with credentials
           </Typography>
+          <FormControl className={classes.margin}>
+            <Input
+              style={{ height: "6vh" }}
+              placeholder="Name"
+              InputLabel="name"
+              id="name"
+              value={user.name}
+              onChange={handleChange("name")}
+              startAdornment={
+                <InputAdornment position="start">
+                  <AccountCircleIcon style={{ color: "#A9A9A9", margin: "0.5vh" }} />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
           <FormControl className={classes.margin}>
             <Input
               style={{ height: "6vh" }}
@@ -164,23 +179,23 @@ function LogInBox(props) {
               style={{
                 backgroundColor: "#9494ff",
                 paddingTop: "1vh",
-                paddingBottom: "1vh",
+                paddingBottom: "1vh"
               }}
-              onClick={handleLogin}
+              onClick={handleRegister}
             >
-              SIGN IN
+              CREATE ACCOUNT
             </Button>
           </div>
         </CardContent>
       </Card>
       <Typography
-            className="createAcchover"
-            gutterBottom
-            style={{marginRight:"7vh"}}
-            onClick={props.hideLogin}
-          >
-            Create Account
-          </Typography>
+        className="createAcchover"
+        gutterBottom
+        style={{ marginRight: "7vh" }}
+        onClick={props.hideRegister}
+      >
+        Already have an account?{" "}
+      </Typography>
     </div>
   );
 }
