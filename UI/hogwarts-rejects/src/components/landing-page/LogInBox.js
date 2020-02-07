@@ -6,7 +6,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import GoogleLogin from "react-google-login";
-import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
@@ -17,8 +16,11 @@ import Input from "@material-ui/core/Input";
 import EmailIcon from "@material-ui/icons/Email";
 import IconButton from "@material-ui/core/IconButton";
 import LockIcon from "@material-ui/icons/Lock";
-
+import axios from "axios"
+import {useDispatch} from 'react-redux'
+import {logIn,logOut} from '../../actions/index'
 const useStyles = makeStyles(theme => ({
+
   root: {
     width: "80%",
     margin: "auto",
@@ -48,6 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 function LogInBox(props) {
+  const dispatch=useDispatch()
   const classes = useStyles();
   const responseGoogle = response => {
     console.log(response);
@@ -72,7 +75,8 @@ function LogInBox(props) {
     event.preventDefault();
   };
   const handleLogin = event =>{
-    console.log(user);
+    dispatch(logIn())
+    // axios.post("/login",{user}).then(res=>{console.log(res)})
   } 
   return (
 <div>
@@ -118,7 +122,7 @@ function LogInBox(props) {
             <Input
               style={{ height: "6vh" }}
               placeholder="Email"
-              InputLabel="email"
+              inputlabel="email"
               id="email"
               value={user.email}
               onChange={handleChange("email")}

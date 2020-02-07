@@ -4,7 +4,10 @@ import RegisterBox from "./RegisterBox";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group"; // ES6
 import loadingScreen from "../../images/Loading3.gif"
 import HomePageWeather from "./HomePageWeather"
+import {useSelector} from 'react-redux'
+
 function HomePage() {
+  const isLogged = useSelector(state=>state.isLogged)
   const [long, setLong] = useState(false);
   const [lat, setLat] = useState(false);
   const [showLogin, setShowLogin] = useState(
@@ -32,6 +35,9 @@ function HomePage() {
  useEffect(()=>{
   console.log(long+lat)
  },[long])
+ useEffect(()=>{
+   console.log(isLogged)
+ })
   return (
     <div style={{ display: "flex" }}>
           <div className="bg-gradient-default" style={{ height: "100vh", backgroundColor: "#add8e6", width: "60vh",background: "linearGradient(87deg,#172b4d,#1a174d)!important", }}>
@@ -39,7 +45,6 @@ function HomePage() {
       <span className="circle2"></span>
       <span className="circle3"></span>
       <span className="circle4"></span>
-
       <span className="circle5"></span>
       <ReactCSSTransitionGroup
         transitionName="example"
@@ -61,8 +66,7 @@ function HomePage() {
 {long&&lat&&<HomePageWeather long={long} lat={lat}/>}
       {!long&&!lat&&<div><br/><br/><br/><br/><br/><h2 style={{color:"#172b4d",textAlign:"center"}}>Loading your location weather in a Minute </h2> <br/><br/><img src={loadingScreen} style={{width:"70vh",height:"53vh",marginLeft:"12vh"}}/></div>}
       </ReactCSSTransitionGroup>
-
-    </div>
+        </div>
   );
 }
 
