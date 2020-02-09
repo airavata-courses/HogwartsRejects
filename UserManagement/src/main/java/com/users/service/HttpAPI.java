@@ -52,11 +52,9 @@ public class HttpAPI {
         Map<String, String> postBody = postBodyParser.getPostBodyInAMap(request);
 
         String userName = postBody.get("userName");
-        String firstName = postBody.get("firstName");
-        String lastName = postBody.get("lastName");
         String password = postBody.get("password");
 
-        UserInfo userInfo = new UserInfo(firstName, lastName, userName, password);
+        UserInfo userInfo = new UserInfo(userName, password);
 
         if(!userRepo.findByUserName(userName).isEmpty()) {
             return ResponseEntity.ok(result);
