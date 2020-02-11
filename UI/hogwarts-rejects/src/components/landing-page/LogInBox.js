@@ -16,15 +16,14 @@ import Input from "@material-ui/core/Input";
 import EmailIcon from "@material-ui/icons/Email";
 import IconButton from "@material-ui/core/IconButton";
 import LockIcon from "@material-ui/icons/Lock";
-import axios from "axios"
-import {useDispatch} from 'react-redux'
-import {logIn,logOut} from '../../actions/index'
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { logIn, logOut } from "../../actions/index";
 const useStyles = makeStyles(theme => ({
-
   root: {
     width: "80%",
     margin: "auto",
-    marginTop: "20vh",
+    marginTop: "20vh"
   },
   margin: {
     margin: theme.spacing(3),
@@ -47,10 +46,10 @@ const useStyles = makeStyles(theme => ({
   },
   gray: {
     backgroundColor: "#f0f0f0"
-  },
-}))
+  }
+}));
 function LogInBox(props) {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const classes = useStyles();
   const responseGoogle = response => {
     console.log(response);
@@ -74,14 +73,14 @@ function LogInBox(props) {
   const handleMouseDownPassword = event => {
     event.preventDefault();
   };
-  const handleLogin = event =>{
-    dispatch(logIn())
-    // axios.post("/login",{user}).then(res=>{console.log(res)})
-  } 
+  const handleLogin = event => {
+    dispatch(logIn());
+    axios.post("http://localhost:8090/login", user).then(res => {
+      console.log(res.data.jwtToken);
+    });
+  };
   return (
-<div>
-       
-
+    <div>
       <Card className={classes.root}>
         <CardContent>
           <Typography
@@ -168,7 +167,7 @@ function LogInBox(props) {
               style={{
                 backgroundColor: "#9494ff",
                 paddingTop: "1vh",
-                paddingBottom: "1vh",
+                paddingBottom: "1vh"
               }}
               onClick={handleLogin}
             >
@@ -178,13 +177,13 @@ function LogInBox(props) {
         </CardContent>
       </Card>
       <Typography
-            className="createAcchover"
-            gutterBottom
-            style={{marginRight:"7vh"}}
-            onClick={props.hideLogin}
-          >
-            Create Account
-          </Typography>
+        className="createAcchover"
+        gutterBottom
+        style={{ marginRight: "7vh" }}
+        onClick={props.hideLogin}
+      >
+        Create Account
+      </Typography>
     </div>
   );
 }
