@@ -11,14 +11,17 @@ public class UserInfo {
 
     private String userName;
 
+    private String fullName;
+
     private String password;
 
     public UserInfo() {
     }
 
-    public UserInfo(String aUserName, String aPassword) {
+    public UserInfo(String aUserName, String aPassword, String aFullName) {
         userName = aUserName;
         password = aPassword;
+        fullName = aFullName;
     }
 
     public String getUserName() {
@@ -35,6 +38,14 @@ public class UserInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
 }
