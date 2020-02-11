@@ -18,6 +18,7 @@ import java.util.Map;
 public class HttpAPI {
 
     public static final String JWT_TOKEN = "jwtToken";
+
     @Autowired
     public UserRepository userRepo;
 
@@ -38,10 +39,27 @@ public class HttpAPI {
         for(UserInfo userInfo : userRepo.findByUserName(userName)) {
             if(userInfo.getPassword().equals(password)) {
                 result.put(JWT_TOKEN, jwtUtility.generateToken(userInfo));
+                result.put("fullName", userInfo.getFullName());
                 break;
             }
         }
 
+        return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping(value = "/verify")
+    public ResponseEntity<?> verify(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, String> result = new HashMap<>();
+        Map<String, String> postBody = postBodyParser.getPostBodyInAMap(request);
+
+        String jwt = postBody.get("jwt");
+        String userName = jwtUtility.extractUserName(jwt);
+
+        if(userRepo.findByUserName(userName).isEmpty()) {
+            return ResponseEntity.ok(result);
+        }
+
+        result.put("userName", userName);
         return ResponseEntity.ok(result);
     }
 
@@ -53,8 +71,9 @@ public class HttpAPI {
 
         String userName = postBody.get("userName");
         String password = postBody.get("password");
+        String fullName = postBody.get("fullName");
 
-        UserInfo userInfo = new UserInfo(userName, password);
+        UserInfo userInfo = new UserInfo(userName, password, fullName);
 
         if(!userRepo.findByUserName(userName).isEmpty()) {
             return ResponseEntity.ok(result);
