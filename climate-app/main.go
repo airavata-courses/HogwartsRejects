@@ -9,6 +9,7 @@ import (
 	"net/url"
 )
 
+// WeatherInfo contains the weather information
 type WeatherInfo struct {
 	Coord struct {
 		Lon float64 `json:"lon"`
@@ -49,10 +50,11 @@ type WeatherInfo struct {
 	Cod  int    `json:"cod"`
 }
 
+// Gets weather data by hiting the api.openweathermap
 func getWeatherData(token string, lat string, lon string) (*WeatherInfo, error) {
 	var weatherinfo WeatherInfo
 
-	baseUrl, err := url.Parse("https://api.openweathermap.org/data/2.5/weather?")
+	baseURL, err := url.Parse("https://api.openweathermap.org/data/2.5/weather?")
 	if err != nil {
 		fmt.Println("Malformed URL: ", err.Error())
 	}
@@ -64,21 +66,22 @@ func getWeatherData(token string, lat string, lon string) (*WeatherInfo, error) 
 	params.Add("appid", token)
 
 	// Add Query Parameters to the URL
-	baseUrl.RawQuery = params.Encode() // Escape Query Parameters
+	baseURL.RawQuery = params.Encode() // Escape Query Parameters
 
-	fmt.Printf("Encoded URL is %q\n", baseUrl.String())
+	fmt.Printf("Encoded URL is %q\n", baseURL.String())
 
-	response, err := http.Get(baseUrl.String())
+	response, err := http.Get(baseURL.String())
 	if err != nil {
 		return &weatherinfo, err
-	} else {
-		data, _ := ioutil.ReadAll(response.Body)
-		json.Unmarshal([]byte(data), &weatherinfo)
 	}
+
+	data, _ := ioutil.ReadAll(response.Body)
+	json.Unmarshal([]byte(data), &weatherinfo)
 
 	return &weatherinfo, nil
 }
 
+// Handles the HTTP request from the client
 func handler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("service accessed")
@@ -97,13 +100,22 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	appids, ok := r.URL.Query()["appid"]
+
+	if !ok || len(appids[0]) < 1 {
+		log.Println("Url Param 'appid' is missing")
+		return
+	}
+
 	lat := lats[0]
 	lon := lons[0]
+	appid := appids[0]
 
 	fmt.Println("Longitude is ", lon)
 	fmt.Println("Latitude is ", lat)
+	fmt.Println("Appid is ", appid)
 
-	weatherinfo, err := getWeatherData("48df9480a2a09854ca753dd0721d3f64", lat, lon)
+	weatherinfo, err := getWeatherData(appid, lat, lon)
 	if err != nil {
 		fmt.Println("Error occurred ", err)
 	}
@@ -122,5 +134,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	http.HandleFunc("/climate", handler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":3000", nil)
 }
