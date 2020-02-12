@@ -10,62 +10,62 @@ import Typography from '@material-ui/core/Typography';
 function HomePageWeather(props) {
   const long = "-89";
   const lat = "39";
-  // const climate = {
-  //   coord: { lon: -89, lat: 39 },
-  //   weather: [
-  //     { id: 804, main: "Clouds", description: "overcast clouds", icon: "04n" }
-  //   ],
-  //   base: "stations",
-  //   main: {
-  //     temp: 276.34,
-  //     pressure: 1023,
-  //     humidity: 80,
-  //     temp_min: 275.15,
-  //     temp_max: 277.59,
-  //     sea_level: 0,
-  //     grnd_level: 0
-  //   },
-  //   wind: { speed: 2.25, deg: 323 },
-  //   clouds: { all: 90 },
-  //   dt: 1581468220,
-  //   sys: { message: 0, country: "US", sunrise: 1581425569, sunset: 1581463668 },
-  //   id: 4238245,
-  //   name: "Fayette",
-  //   cod: 200
-  // };
-  const [climate, setClimate] = useState({
-  });
-  useEffect(() => {
-    axios
-      .get(
-        "http://localhost:8090/climate?lon=" +
-          long +
-          "&lat=" +
-          lat +
-          "&appid=48df9480a2a09854ca753dd0721d3f64"
-      )
-      .then(function(res) {
-        console.log(res.data)
-        setClimate({
-          long: JSON.stringify(res.data.coord.lon),
-          lat: JSON.stringify(res.data.coord.lat),
-          weatherid:JSON.stringify(res.data.weather.id),
-          weathermain:JSON.stringify(res.data.main),
-          weatherdescription:JSON.stringify(res.data.weather.description),
-          temp:JSON.stringify(res.data.main.temp),
-          pressure:JSON.stringify(res.data.main.pressure),
-          humidity:JSON.stringify(res.data.main.humidity),
-          temp_min:JSON.stringify(res.data.main.temp_min),
-          temp_max:JSON.stringify(res.data.main.temp_max),
-          windspeed:JSON.stringify(res.data.wind.speed),
-          winddeg:JSON.stringify(res.data.wind.deg),
-          country:JSON.stringify(res.data.sys.country),
-          sunrise:JSON.stringify(res.data.sys.sunrise),
-          sunset:JSON.stringify(res.data.sys.sunset),
-          city:JSON.stringify(res.data.name),
-        })
-      });
-  }, []);
+  const climate = {
+    coord: { lon: -89, lat: 39 },
+    weather: [
+      { id: 804, main: "Clouds", description: "overcast clouds", icon: "04n" }
+    ],
+    base: "stations",
+    main: {
+      temp: 276.34,
+      pressure: 1023,
+      humidity: 80,
+      temp_min: 275.15,
+      temp_max: 277.59,
+      sea_level: 0,
+      grnd_level: 0
+    },
+    wind: { speed: 2.25, deg: 323 },
+    clouds: { all: 90 },
+    dt: 1581468220,
+    sys: { message: 0, country: "US", sunrise: 1581425569, sunset: 1581463668 },
+    id: 4238245,
+    name: "Fayette",
+    cod: 200
+  };
+  // const [climate, setClimate] = useState({
+  // });
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "http://localhost:8090/climate?lon=" +
+  //         long +
+  //         "&lat=" +
+  //         lat +
+  //         "&appid=48df9480a2a09854ca753dd0721d3f64"
+  //     )
+  //     .then(function(res) {
+  //       console.log(res.data)
+  //       setClimate({
+  //         long: JSON.stringify(res.data.coord.lon),
+  //         lat: JSON.stringify(res.data.coord.lat),
+  //         weatherid:JSON.stringify(res.data.weather.id),
+  //         weathermain:JSON.stringify(res.data.main),
+  //         weatherdescription:JSON.stringify(res.data.weather.description),
+  //         temp:JSON.stringify(res.data.main.temp),
+  //         pressure:JSON.stringify(res.data.main.pressure),
+  //         humidity:JSON.stringify(res.data.main.humidity),
+  //         temp_min:JSON.stringify(res.data.main.temp_min),
+  //         temp_max:JSON.stringify(res.data.main.temp_max),
+  //         windspeed:JSON.stringify(res.data.wind.speed),
+  //         winddeg:JSON.stringify(res.data.wind.deg),
+  //         country:JSON.stringify(res.data.sys.country),
+  //         sunrise:JSON.stringify(res.data.sys.sunrise),
+  //         sunset:JSON.stringify(res.data.sys.sunset),
+  //         city:JSON.stringify(res.data.name),
+  //       })
+  //     });
+  // }, []);
   return (
     <div>
       <Card >

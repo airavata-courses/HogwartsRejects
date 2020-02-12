@@ -63,7 +63,7 @@ function HomePage() {
         transitionLeaveTimeout={2000}
       >
 
-{long&&lat&&<HomePageWeather long={long} lat={lat}/>}
+{!long&&!lat&&<HomePageWeather long={long} lat={lat}/>}
       {!long&&!lat&&<div><br/><br/><br/><br/><br/><h2 style={{color:"#172b4d",textAlign:"center"}}>Loading your location weather in a Minute </h2> <br/><br/><img src={loadingScreen} style={{width:"70vh",height:"53vh",marginLeft:"12vh"}}/></div>}
       </ReactCSSTransitionGroup>
         </div>
