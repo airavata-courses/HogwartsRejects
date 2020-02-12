@@ -23,7 +23,7 @@ public class KafkaConfiguration {
 
         //TODO: Check the config with the team
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:8081");
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_sm");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 

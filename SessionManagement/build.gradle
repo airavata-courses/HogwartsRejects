@@ -32,7 +32,7 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
-    compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.4.1.RELEASE'
+     compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.4.1.RELEASE'
 
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'

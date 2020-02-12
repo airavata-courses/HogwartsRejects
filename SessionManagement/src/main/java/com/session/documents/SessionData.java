@@ -8,26 +8,30 @@ import java.util.Date;
 @Document(collection = "SessionData")
 public class SessionData {
 
-    public static final String MODELLING = "modelling";
+    public static final String HOST_URL = "hostURL";
+    public static final String QUERY = "query";
+    public static final String USER_NAME = "userName";
+    public static final String JOB_ID = "jobID";
+    public static final String STATUS = "status";
 
     @Id
-    public String id;
-    public String userName;
-    public String jobID;
-    public String query;
-    public String status;
-    public Date queryDate;
+    private String id;
+    private String userName;
+    private String jobID;
+    private String query;
+    private String status;
+    private Date queryDate;
     private String hostURL;
 
     public SessionData() {
     }
 
     //query is nexrad url
-    public SessionData(String aUserName, String aJobID, String aQuery) {
+    public SessionData(String aUserName, String aJobID, String aStatus) {
         userName = aUserName;
         jobID = aJobID;
-        query = aQuery;
-        status = MODELLING;
+        query = "";
+        status = aStatus;
         queryDate = new Date(System.currentTimeMillis());
         hostURL = "";
     }
