@@ -2,12 +2,13 @@ plugins {
     id 'org.springframework.boot' version '2.1.8.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'com.palantir.docker' version '0.22.1'
 }
 
 group 'SessionManagement'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 8
 
 task fatJar(type: Jar) {
     manifest {
@@ -24,6 +25,13 @@ repositories {
     mavenCentral()
 }
 
+docker {
+    name "sessionmanagementapp"
+    dockerfile file('Dockerfile')
+    copySpec.from(jar).rename(".*","SessionManagement.jar")
+    buildArgs(['JAR_FILE': "SessionManagement.jar"])
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -32,7 +40,7 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
-     compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.4.1.RELEASE'
+     //compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.4.1.RELEASE'
 
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
