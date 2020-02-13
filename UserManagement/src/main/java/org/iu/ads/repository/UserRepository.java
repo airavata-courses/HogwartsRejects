@@ -1,6 +1,6 @@
-package com.users.repository;
+package org.iu.ads.repository;
 
-import com.users.view.UserInfo;
+import org.iu.ads.view.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

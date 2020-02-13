@@ -1,4 +1,4 @@
-package com.users.view;
+package org.iu.ads.view;
 
 import javax.persistence.*;
 

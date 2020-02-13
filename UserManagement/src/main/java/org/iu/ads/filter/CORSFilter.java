@@ -1,4 +1,4 @@
-package com.users.filter;
+package org.iu.ads.filter;
 
 import org.springframework.stereotype.Component;
 
