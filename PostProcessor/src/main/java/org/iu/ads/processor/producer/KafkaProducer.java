@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducer {
 
-    public static final String TOPIC = "SessionHistory";
-    public static final String MESSAGE = "Image hosted";
+    public static final String TOPIC = "PostProcessorProducer";
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -18,8 +17,8 @@ public class KafkaProducer {
     @Autowired
     PostProcessorRepository postProcessorRepository;
 
-    public void produce() {
-        kafkaTemplate.send(TOPIC, MESSAGE);
+    public void produce(String message) {
+        kafkaTemplate.send(TOPIC, message);
     }
 }
 

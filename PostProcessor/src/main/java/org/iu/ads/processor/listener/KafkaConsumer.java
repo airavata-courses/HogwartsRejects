@@ -52,6 +52,6 @@ public class KafkaConsumer {
         } else
             postProcessorRepository.save(new PostData((String)json.get(PostData.USER_NAME), (String)json.get(PostData.JOB_ID), (String)json.get(PostData.HOST_URL)));
 
-        kafkaProducer.produce();
+        kafkaProducer.produce((String)json.get(PostData.HOST_URL));
     }
 }
