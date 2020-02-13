@@ -20,7 +20,7 @@ import java.util.Map;
 @Configuration
 public class KafkaConfiguration {
 
-    public static final String SERVER_DETAILS = "127.0.0.1:9092";
+    public static final String SERVER_DETAILS = "kafka_standalone:9092";
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {

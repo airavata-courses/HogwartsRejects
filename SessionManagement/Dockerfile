@@ -1,22 +1,14 @@
-# Start with a base image containing Java runtime
-FROM openjdk:8-jdk-alpine
+FROM gradle:6.1.1-jdk8 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build --no-daemon
 
-# Add Maintainer Info
-LABEL maintainer="vivekshrestabandaru@gmail.com"
+FROM openjdk:8-jre-slim
 
-# Add a volume pointing to /tmp
-VOLUME /tmp1
+EXPOSE 9092
 
-# The application's jar file
-ARG JAR_FILE
+RUN mkdir /app
 
-# Add the application's jar to the container
-COPY ${JAR_FILE} SessionManagement.jar
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/sessionapp.jar
 
-#RUN sh -c 'touch /SessionManagement.jar'
-
-# Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/SessionManagement.jar"]
-
-# Make port 8089 available to the world outside this container
-EXPOSE 8089
+ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/sessionapp.jar"]
