@@ -17,7 +17,7 @@ public class CORSFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        List<String> allowedDomains = new ArrayList();
+        List<String> allowedDomains = new ArrayList<>();
         allowedDomains.add("http://localhost:3000");
         allowedDomains.add("http://localhost:3001");
         allowedDomains.add("http://localhost:5000");
