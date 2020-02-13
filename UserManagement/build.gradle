@@ -1,35 +1,18 @@
 plugins {
     id 'org.springframework.boot' version '2.1.8.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'java'
     id 'com.palantir.docker' version '0.22.1'
+    id 'java'
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 group 'UserManagement'
 version '1.0-SNAPSHOT'
-
-sourceCompatibility = '8'
-
-//task fatJar(type: Jar) {
-//    manifest {
-//        attributes 'UserManagement': 'Gradle jar creation',
-//                'Implementation-Version': version,
-//                'Main-Class': 'com.user.UserManagementApplication'
-//    }
-//    baseName = project.name
-//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-//    with jar
-//}
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
-}
-
-docker {
-    name "usermanagementapp"
-    dockerfile file('Dockerfile')
-    copySpec.from(jar).rename(".*","UserManagement.jar")
-    buildArgs(['JAR_FILE': "UserManagement.jar"])
 }
 
 dependencies {
