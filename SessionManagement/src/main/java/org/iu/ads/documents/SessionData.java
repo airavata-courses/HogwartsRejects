@@ -1,4 +1,4 @@
-package com.session.documents;
+package org.iu.ads.documents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,6 +1,6 @@
-package com.session.config;
+package org.iu.ads.config;
 
-import com.session.documents.SessionData;
+import org.iu.ads.documents.SessionData;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

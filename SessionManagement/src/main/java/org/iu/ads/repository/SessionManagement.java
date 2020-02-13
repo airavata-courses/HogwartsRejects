@@ -1,6 +1,6 @@
-package com.session.repository;
+package org.iu.ads.repository;
 
-import com.session.documents.SessionData;
+import org.iu.ads.documents.SessionData;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
