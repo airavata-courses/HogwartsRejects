@@ -1,8 +1,8 @@
-package com.session.listener;
+package org.iu.ads.listener;
 
-import com.session.documents.SessionData;
-import com.session.produce.KafkaProducer;
-import com.session.repository.SessionManagement;
+import org.iu.ads.documents.SessionData;
+import org.iu.ads.produce.KafkaProducer;
+import org.iu.ads.repository.SessionManagement;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
