@@ -6,6 +6,7 @@ RUN gradle build --no-daemon
 FROM openjdk:8-jre-slim
 
 EXPOSE 9092
+EXPOSE 3002
 
 RUN mkdir /app
 
