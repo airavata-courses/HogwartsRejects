@@ -1,7 +1,8 @@
-package com.session.listener;
+package org.iu.ads.listener;
 
-import com.session.documents.SessionData;
-import com.session.repository.SessionManagement;
+import org.iu.ads.documents.SessionData;
+import org.iu.ads.produce.KafkaProducer;
+import org.iu.ads.repository.SessionManagement;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -14,10 +15,15 @@ import java.util.List;
 @Service
 public class KafkaConsumer {
 
+    public static final String TOPIC = "SessionManagement";
+
     @Autowired
     SessionManagement sessionManagementRepository;
 
-    @KafkaListener(topics = "SessionManagement", groupId = "group_sm")
+    @Autowired
+    KafkaProducer kafkaProducer;
+
+    @KafkaListener(topics = TOPIC, groupId = "group_sm")
     public void consume(String message) {
         JSONObject json = new JSONObject();
         try {
@@ -29,6 +35,9 @@ public class KafkaConsumer {
         if(json.isEmpty() || json.get(SessionData.USER_NAME) == null || json.get(SessionData.JOB_ID) == null) {
             return;
         }
+
+        if(json.get(SessionData.JOB_ID).equals(""))
+            kafkaProducer.produce(SessionData.USER_NAME);
 
         List<SessionData> sessionDataList = sessionManagementRepository.findByUserName((String)json.get(SessionData.USER_NAME));
         if(sessionDataList.isEmpty()) {
