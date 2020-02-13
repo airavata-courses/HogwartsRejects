@@ -1,36 +1,37 @@
 plugins {
     id 'org.springframework.boot' version '2.2.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'java'
     id 'com.palantir.docker' version '0.22.1'
+    id 'java'
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 group 'SessionManagement'
 version '1.0-SNAPSHOT'
+sourceCompatibility = '1.8'
 
-sourceCompatibility = 8
-
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'SessionManagement': 'Gradle jar creation',
-                'Implementation-Version': version,
-                'Main-Class': 'com.user.SessionManagementApplication'
-    }
-    baseName = project.name
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
+//task fatJar(type: Jar) {
+//    manifest {
+//        attributes 'SessionManagement': 'Gradle jar creation',
+//                'Implementation-Version': version,
+//                'Main-Class': 'com.user.SessionManagementApplication'
+//    }
+//    baseName = project.name
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    with jar
+//}
 
 repositories {
     mavenCentral()
 }
 
-docker {
-    name "sessionmanagementapp"
-    dockerfile file('Dockerfile')
-    copySpec.from(jar).rename(".*","SessionManagement.jar")
-    buildArgs(['JAR_FILE': "SessionManagement.jar"])
-}
+//docker {
+//    name "sessionmanagementapp"
+//    dockerfile file('Dockerfile')
+//    copySpec.from(jar).rename(".*","SessionManagement.jar")
+//    buildArgs(['JAR_FILE': "SessionManagement.jar"])
+//}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
