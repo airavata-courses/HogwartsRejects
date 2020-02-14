@@ -1,8 +1,0 @@
-boto3
-botocore
-matplotlib
-metpy
-# mpl_toolkits
-numpy
-pyimgur
-pykafka
