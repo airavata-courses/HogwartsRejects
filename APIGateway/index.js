@@ -30,7 +30,7 @@ app.post("/dataRetrieval", (req, res) => {
       userName=response.data.userName
     
   const jobid=uuidv4();
-  console.log(jobid,userName);
+  console.log(jobid+userName);
   var url = req.body.fileloc;
   console.log("data retrieval req with url " + req.body.fileloc);
   (Producer = kafka.Producer),
@@ -56,7 +56,7 @@ app.post("/dataRetrieval", (req, res) => {
         count += 1;
       });
       let msgdt = {
-        jobid:jobid,
+        jobID:jobid,
         query:url,
         userName:userName,
         status:"DATA_RETRIEVED"
@@ -148,4 +148,63 @@ app.get("/climate", (req, res) => {
       res.send(response.data);
     });
 });
+app.post("/fetchURL", (req, res) => {
+  console.log("fetch URL hit");
+  var userName
+  var jobID=req.body.jobID
+  console.log(jobID)
+  axios
+    .post("http://localhost:8084/verify", {
+      jwt: req.body.jwtToken,
+        })
+    .then(function(response) {
+      console.log(response.data.userName);
+      userName=response.data.userName
+      axios
+        .post("http://localhost:8095/postprocessor/fetchURL",{
+        jobID:jobID,
+        userName:userName,
+        })
+        .then(function(respo){
+         console.log(respo.data.hostURL+"fetch url response")
+         res.send(respo.data.hostURL) 
+        })
+        .catch(function(response){
+          console.log(response)
+        }
+        )
+      })
+        
+
+    })
+
+    app.post("/fetchUsers", (req, res) => {
+      console.log("fetch jobs hit");
+      var userName
+      var jobID=req.body.jobID
+      console.log(jobID)
+      axios
+        .post("http://localhost:8084/verify", {
+          jwt: req.body.jwtToken,
+            })
+        .then(function(response) {
+          console.log(response.data.userName);
+          userName=response.data.userName
+          axios
+            .post("http://localhost:3002/session/fetchUsers",{
+            userName:userName,
+            })
+            .then(function(respo){
+             console.log(respo.data)
+             res.send(respo.data) 
+            })
+            .catch(function(response){
+              console.log(response)
+            }
+            )
+          })
+            
+    
+        })
+  
 app.listen(port, () => console.log(`Listening on port ${port}`));
