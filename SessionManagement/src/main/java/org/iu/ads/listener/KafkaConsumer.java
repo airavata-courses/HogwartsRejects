@@ -61,7 +61,7 @@ public class KafkaConsumer {
                 sessionData.setHostURL((String)json.get(SessionData.HOST_URL));
 
             if(json.get(SessionData.STATUS) != null)
-                sessionData.setHostURL((String)json.get(SessionData.STATUS));
+                sessionData.setStatus((String)json.get(SessionData.STATUS));
 
             sessionManagementRepository.save(sessionData);
         }
