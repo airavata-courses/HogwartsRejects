@@ -27,6 +27,8 @@ User Management also takes care of decrypting the JWT token and setting the user
 
 Since, login should be synchronous, we exposed a REST endpoint for login, signup and verify. Upon successfull validation, the api returns the jwt or the username respectively which is cosumed by the API gateway.
 
+The DB used for this microservice is PostgresSQL.
+
 
 ## Session Management 
 
@@ -39,12 +41,16 @@ Session Management also takes care of providing the user the list of all his/her
 
 Currently, this can be done either via a RestEndpoint or through Kafka.
 
+The DB used for this microservice is MongoDB.
+
 
 ## Post Processing
 
 Once an image is created, it is hosted on cloud. For now, post processing keeps track of the user's jobs and the image url on cloud. When the user requests for his history of queries, SessionManagement lists all the user queries. Upon selecting a query, Post-Processing fetches the appropriate image url and sends it to API Gateway.
 
 Currently, this can be done either via a RestEndpoint or through Kafka.
+
+The DB used for this microservice is MongoDB.
 
 
 ### Installing
