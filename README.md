@@ -16,6 +16,37 @@ What things you need to install the software and how to install them
 Give examples
 ```
 
+## User Management
+
+User Management microservice takes care of login, signup and the verification of each request before api gateway produces to a kafka topic making sure every request is from an authenticated user.
+
+By generating a JWT token, the username of the user is never exposed.
+This way, even if the username is exposed via logs, the possibility of session hijacking is drastically decreased.
+
+User Management also takes care of decrypting the JWT token and setting the username in response. This way usermame is passed internally across the other microservices for mapping the jobs(or user queries) with the user.
+
+Since, login should be synchronous, we exposed a REST endpoint for login, signup and verify. Upon successfull validation, the api returns the jwt or the username respectively which is cosumed by the API gateway.
+
+
+## Session Management 
+
+Session Management microservices takes care of tracking the user queries and their statuses.
+Basically, once a user queries a job, the session management creates an entry for that. Any change in status of the job will be consumed by the SessionManagement and will immediately be stored in MongoDB.
+
+This is achieved through Kafka. SessionManagement has its own TOPIC to which all the microservices send messages about their status.
+
+Session Management also takes care of providing the user the list of all his/her queries upon request.
+
+Currently, this can be done either via a RestEndpoint or through Kafka.
+
+
+## Post Processing
+
+Once an image is created, it is hosted on cloud. For now, post processing keeps track of the user's jobs and the image url on cloud. When the user requests for his history of queries, SessionManagement lists all the user queries. Upon selecting a query, Post-Processing fetches the appropriate image url and sends it to API Gateway.
+
+Currently, this can be done either via a RestEndpoint or through Kafka.
+
+
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
