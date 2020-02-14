@@ -39,7 +39,7 @@ public class HttpAPI {
         if(!userJobsByName.isEmpty()) {
             for(PostData userJob : userJobsByName) {
                 if(userJob.getJobID().equals(postBody.get(PostData.JOB_ID))) {
-                    hostURL = postBody.get(PostData.HOST_URL);
+                    hostURL = userJob.getHostURL();
                     break;
                 }
             }
