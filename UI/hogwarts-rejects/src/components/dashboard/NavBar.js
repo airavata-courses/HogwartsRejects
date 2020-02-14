@@ -24,6 +24,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/Inbox";
 import { useHistory, withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
@@ -192,7 +193,7 @@ function NavBar() {
       <br />
       <Divider />
       <List>
-        <ListItem button component={Link} to="/dashboard/dataselection">
+        <ListItem button onClick={()=>{props.history.push}}>
           <ListItemText primary="Data Selection" />
         </ListItem>
         <ListItem button component={Link} to="/dashboard/pastactivity">
