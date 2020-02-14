@@ -42,28 +42,34 @@ public class KafkaConsumer {
         List<SessionData> sessionDataList = sessionManagementRepository.findByUserName((String)json.get(SessionData.USER_NAME));
         if(sessionDataList.isEmpty()) {
             SessionData sessionData = new SessionData((String)json.get(SessionData.USER_NAME), (String)json.get(SessionData.JOB_ID), (String)json.get(SessionData.STATUS));
-
-            if(json.get(SessionData.QUERY) != null)
-                sessionData.setQuery((String)json.get(SessionData.QUERY));
-
-            if(json.get(SessionData.HOST_URL) != null)
-                sessionData.setHostURL((String)json.get(SessionData.HOST_URL));
+            setSessionData(json, sessionData);
 
             sessionManagementRepository.save(sessionData);
 
         } else {
-            SessionData sessionData = sessionDataList.get(0);
+            for(SessionData sessionData : sessionDataList) {
+                if(sessionData.getJobID().equals(json.get(SessionData.JOB_ID))) {
+                    setSessionData(json, sessionData);
+                    sessionManagementRepository.save(sessionData);
+                    return;
+                }
+            }
 
-            if(json.get(SessionData.QUERY) != null)
-                sessionData.setQuery((String)json.get(SessionData.QUERY));
-
-            if(json.get(SessionData.HOST_URL) != null)
-                sessionData.setHostURL((String)json.get(SessionData.HOST_URL));
-
-            if(json.get(SessionData.STATUS) != null)
-                sessionData.setStatus((String)json.get(SessionData.STATUS));
+            SessionData sessionData = new SessionData((String)json.get(SessionData.USER_NAME), (String)json.get(SessionData.JOB_ID), (String)json.get(SessionData.STATUS));
+            setSessionData(json, sessionData);
 
             sessionManagementRepository.save(sessionData);
         }
+    }
+
+    private void setSessionData(JSONObject json, SessionData sessionData) {
+        if(json.get(SessionData.QUERY) != null)
+            sessionData.setQuery((String)json.get(SessionData.QUERY));
+
+        if(json.get(SessionData.HOST_URL) != null)
+            sessionData.setHostURL((String)json.get(SessionData.HOST_URL));
+
+        if(json.get(SessionData.STATUS) != null)
+            sessionData.setStatus((String)json.get(SessionData.STATUS));
     }
 }
