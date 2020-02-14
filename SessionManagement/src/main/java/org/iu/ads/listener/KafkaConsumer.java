@@ -36,8 +36,8 @@ public class KafkaConsumer {
             return;
         }
 
-        if(json.get(SessionData.JOB_ID).equals(""))
-            kafkaProducer.produce(SessionData.USER_NAME);
+//        if(json.get(SessionData.JOB_ID).equals(""))
+//            kafkaProducer.produce(SessionData.USER_NAME);
 
         List<SessionData> sessionDataList = sessionManagementRepository.findByUserName((String)json.get(SessionData.USER_NAME));
         if(sessionDataList.isEmpty()) {
