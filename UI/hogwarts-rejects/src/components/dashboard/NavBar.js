@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavBar() {
+function NavBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -279,3 +279,4 @@ export default function NavBar() {
     </div>
   );
 }
+export default withRouter(NavBar)

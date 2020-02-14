@@ -17,7 +17,12 @@ import Input from "@material-ui/core/Input";
 import EmailIcon from "@material-ui/icons/Email";
 import IconButton from "@material-ui/core/IconButton";
 import LockIcon from "@material-ui/icons/Lock";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import axios from "axios";
+import { logIn, logOut } from "../../actions/index";
+import { useDispatch } from "react-redux";
+import { withRouter } from 'react-router-dom';
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "80%",
@@ -47,7 +52,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#f0f0f0"
   }
 }));
-function LogInBox(props) {
+function RegisterBox(props) {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const responseGoogle = response => {
     console.log(response);
@@ -73,7 +79,15 @@ function LogInBox(props) {
     event.preventDefault();
   };
   const handleRegister = event => {
-    console.log(user);
+    axios.post("http://localhost:8090/signup", user).then(res => {
+      if (Object.keys(res.data).length == 0) {
+        console.log("error");
+      } else {
+        console.log(res.data.jwtToken);
+        dispatch(logIn(res.data.jwtToken))
+        props.history.push("/dashboard")
+      }   
+    });
   };
   return (
     <div>
@@ -123,7 +137,9 @@ function LogInBox(props) {
               onChange={handleChange("name")}
               startAdornment={
                 <InputAdornment position="start">
-                  <AccountCircleIcon style={{ color: "#A9A9A9", margin: "0.5vh" }} />
+                  <AccountCircleIcon
+                    style={{ color: "#A9A9A9", margin: "0.5vh" }}
+                  />
                 </InputAdornment>
               }
             />
@@ -200,4 +216,4 @@ function LogInBox(props) {
   );
 }
 
-export default LogInBox;
+export default withRouter(RegisterBox);

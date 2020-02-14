@@ -19,6 +19,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logIn, logOut } from "../../actions/index";
+import { withRouter } from 'react-router-dom';
 const useStyles = makeStyles(theme => ({
   root: {
     width: "80%",
@@ -74,9 +75,14 @@ function LogInBox(props) {
     event.preventDefault();
   };
   const handleLogin = event => {
-    dispatch(logIn());
     axios.post("http://localhost:8090/login", user).then(res => {
-      console.log(res.data.jwtToken);
+      if (Object.keys(res.data).length == 0) {
+        console.log("error");
+      } else {
+        console.log(res.data.jwtToken);
+        dispatch(logIn(res.data.jwtToken))
+        props.history.push("/dashboard")
+      }    
     });
   };
   return (
@@ -188,4 +194,4 @@ function LogInBox(props) {
   );
 }
 
-export default LogInBox;
+export default withRouter(LogInBox);

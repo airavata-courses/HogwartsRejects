@@ -2,7 +2,7 @@
 const loggedReducer = (state = false, action) => {
   switch (action.type) {
     case "SIGN_IN":
-      return true;
+      return action.payload;
     case "SIGN_OUT":
       return false;
     default:

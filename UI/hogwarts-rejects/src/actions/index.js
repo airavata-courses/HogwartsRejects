@@ -1,6 +1,7 @@
-export const logIn = () => {
+export const logIn = (jwtToken) => {
     return{
         type:'SIGN_IN',
+        payload:jwtToken,
     };
 
 }
