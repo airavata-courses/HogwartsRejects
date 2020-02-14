@@ -28,7 +28,6 @@ public class HttpAPI {
         String userName = postBody.get("userName");
 
         return ResponseEntity.ok(sessionManagementRepo.findByUserName(userName));
-
     }
 
 }
