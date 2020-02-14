@@ -1,9 +1,9 @@
-package com.users.service;
+package org.iu.ads.service;
 
-import com.users.repository.UserRepository;
-import com.users.utility.JwtUtility;
-import com.users.utility.PostBodyParser;
-import com.users.view.UserInfo;
+import org.iu.ads.repository.UserRepository;
+import org.iu.ads.utility.JwtUtility;
+import org.iu.ads.utility.PostBodyParser;
+import org.iu.ads.view.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +52,7 @@ public class HttpAPI {
         Map<String, String> result = new HashMap<>();
         Map<String, String> postBody = postBodyParser.getPostBodyInAMap(request);
 
-        String jwt = postBody.get("jwt");
+        String jwt = postBody.get("jwt").substring(7);
         String userName = jwtUtility.extractUserName(jwt);
 
         if(userRepo.findByUserName(userName).isEmpty()) {
@@ -82,6 +82,14 @@ public class HttpAPI {
         userRepo.save(userInfo);
 
         result.put(JWT_TOKEN, jwtUtility.generateToken(userInfo));
+        return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping(value = "/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, String> result = new HashMap<>();
+        result.put("jwt", "");
+
         return ResponseEntity.ok(result);
     }
 }

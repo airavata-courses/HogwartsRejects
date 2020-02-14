@@ -1,6 +1,6 @@
-package com.users.utility;
+package org.iu.ads.utility;
 
-import com.users.view.UserInfo;
+import org.iu.ads.view.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

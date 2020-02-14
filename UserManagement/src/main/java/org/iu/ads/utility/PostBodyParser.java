@@ -1,4 +1,4 @@
-package com.users.utility;
+package org.iu.ads.utility;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
