@@ -52,7 +52,7 @@ public class HttpAPI {
         Map<String, String> result = new HashMap<>();
         Map<String, String> postBody = postBodyParser.getPostBodyInAMap(request);
 
-        String jwt = postBody.get("jwt");
+        String jwt = postBody.get("jwt").substring(7);
         String userName = jwtUtility.extractUserName(jwt);
 
         if(userRepo.findByUserName(userName).isEmpty()) {
