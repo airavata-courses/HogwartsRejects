@@ -135,8 +135,8 @@ def plot_graph(msg):
 
 
 # msg='2019/06/26/KVWX/KVWX20190626_221105_V06'
-client = KafkaClient(hosts="127.0.0.1:9092")
-topic = client.topics['data-retrievalpytest']
+client = KafkaClient(hosts="kafka:9092")
+topic = client.topics['user.data_processor.data']
 consumer = topic.get_simple_consumer()
 while True:
     msg = consumer.consume()
@@ -154,16 +154,16 @@ while True:
         "status":"MODELING_IN_PROGRESS",
     }
     print(ssmgt_msg)
-    topic = client.topics['SessionManagement']
+    topic = client.topics['user.session_management.data']
     producer = topic.get_sync_producer()
     producer.produce(bytes(json.dumps(ssmgt_msg),'utf-8'))
-    print("Message Produced to 'SessionManangement'")
+    print("Message Produced to 'user.session_management.data'")
     pp_msg= {
         "jobID":json_msg['jobid'],
         "userName":json_msg['userName'],
         "hostURL":imageurl,
     }
-    topic = client.topics['PostProcessor']
+    topic = client.topics['user.post_processor.data']
     producer = topic.get_sync_producer()
     producer.produce(bytes(json.dumps(pp_msg),'utf-8'))
-    print("Message Produced to 'PostProcessor'")
+    print("Message Produced to 'user.post_processor.data'")
