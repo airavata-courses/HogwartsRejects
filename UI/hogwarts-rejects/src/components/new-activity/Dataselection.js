@@ -16,7 +16,7 @@ function DataSelection() {
 
   const startProcess = () => {
     console.log(state.fileloc);
-    axios.post("http://localhost:8090/dataRetrieval", state).then(res => {
+    axios.post("/api/dataprocessor", state).then(res => {
       console.log(res.data);
     });
   };

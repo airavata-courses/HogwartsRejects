@@ -1,0 +1,140 @@
+version: '3'
+services:
+  kafka:
+    image: lensesio/fast-data-dev
+    ports: 
+      - 2181:2181 
+      - 3030:3030
+      - 8081-8083:8081-8083
+      - 9581-9585:9581-9585
+      - 9092:9092
+    networks: 
+      - ads_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  api-gateway:
+    build: './APIGateway'
+    ports: 
+      - 8090:8090
+    networks: 
+      - ads_network
+    depends_on: 
+      - kafka
+      - user-management
+      - session-management
+      - data-retriever
+      - post-processor
+      - data-processor
+
+  user-management:
+    build: './UserManagement'
+    ports:
+      - 3004:3000
+    depends_on: 
+      - user-management-db
+    networks: 
+      - ads_network
+
+  session-management:
+    build: './SessionManagement'
+    ports:
+      - 3001:3000
+    networks: 
+      - ads_network
+    depends_on: 
+      - session-management-db
+      - kafka
+
+  data-retriever:
+    build: './climate-app'
+    ports:
+      - 3002:3000
+    networks: 
+      - ads_network
+
+  data-processor:
+    build: './PyNexRad'
+    networks: 
+      - ads_network
+    depends_on: 
+      - kafka
+
+  post-processor:
+    build: './PostProcessor'
+    ports:
+      - 3003:3000
+    networks: 
+      - ads_network
+    depends_on: 
+      - post-processor-db
+      - kafka
+      
+  user-management-db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment: 
+      - POSTGRES_PASSWORD=shresta
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes: 
+      - ./docker/usermanagement/data:/var/lib/postgressql/data
+    networks: 
+      - ads_network
+
+  session-management-db:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes: 
+      - ./docker/sessionmanagement/data:/data/db
+    networks: 
+      - ads_network
+
+  post-processor-db:
+    image: mongo
+    ports:
+      - 27018:27017
+    volumes: 
+      - ./docker/postprocessor/data:/data/db
+    networks: 
+      - ads_network
+
+  # zookeeper:
+  #   image: wurstmeister/zookeeper
+  #   ports:
+  #     - 2181:2181
+  #   hostname: zookeeper
+  #   networks: 
+  #     - ads_network
+
+  # kafka:
+  #   image: wurstmeister/kafka
+  #   command: [start-kafka.sh]
+  #   ports:
+  #     - 9092:9092
+  #   hostname: kafka
+  #   networks: 
+  #     - ads_network
+  #   environment:
+  #     KAFKA_CREATE_TOPICS: "user.post_processor.data:1:1,user.session_management.data:1:1,user.data_processor.data:1:1,test.data:1:1" # topic:partition:replicas
+  #     KAFKA_ADVERTISED_HOST_NAME: kafka # docker-machine ip
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #     KAFKA_ADVERTISED_PORT: 9092
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   depends_on:
+  #     - zookeeper
+
+  ui:
+    build: './UI/hogwarts-rejects'
+    ports: 
+      - 80:80
+    networks: 
+      - ads_network
+    depends_on: 
+      - api-gateway
+
+networks: 
+  ads_network:

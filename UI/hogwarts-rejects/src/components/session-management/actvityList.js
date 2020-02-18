@@ -71,7 +71,7 @@ function ActivityList() {
   };
   useEffect(() => {
     console.log(jobID);
-    axios.post("http://localhost:8090/fetchURL", jobID).then(res => {
+    axios.post("/api/fetchURL", jobID).then(res => {
       console.log(res);
       setImageURL(res.data);
       handleOpen();
@@ -82,7 +82,7 @@ function ActivityList() {
   }, [imageURL]);
   const loadJob = () => {
     console.log(jobID.fileloc);
-    axios.post("http://localhost:8090/fetchUsers", jobID).then(res => {
+    axios.post("/api/fetchUsers", jobID).then(res => {
       console.log(res.data);
       setJobs(res.data);
     });

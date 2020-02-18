@@ -17,7 +17,7 @@ function HomePageWeather(props) {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:8090/climate?lon=" +
+        "/api/climate?lon=" +
           props.long +
           "&lat=" +
           props.lat +

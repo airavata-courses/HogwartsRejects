@@ -75,7 +75,7 @@ function LogInBox(props) {
     event.preventDefault();
   };
   const handleLogin = event => {
-    axios.post("http://localhost:8090/login", user).then(res => {
+    axios.post("/api/login", user).then(res => {
       if (Object.keys(res.data).length == 0) {
         console.log("error");
       } else {

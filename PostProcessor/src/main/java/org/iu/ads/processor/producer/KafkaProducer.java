@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducer {
 
-    public static final String TOPIC = "PostProcessorProducer";
+    public static final String TOPIC = "user.session_management.data";
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
