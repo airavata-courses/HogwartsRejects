@@ -6,11 +6,17 @@ One Paragraph of project description goes here
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+clone the repository in develop branch and run the following command inside:
+```
+docker-compose up --build -d
+```
+
+THATS IT! YOU ARE SET!
+Go to http://localhost/ to see the wesbsite when the containers are up and running!
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Latest Version of Docker
 
 ## System Architecture
 ![Image description](https://cdn.discordapp.com/attachments/394719662086291466/679153099763351562/image0.jpg)
