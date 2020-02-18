@@ -1,17 +1,50 @@
 version: '3'
 services:
-  kafka:
-    image: lensesio/fast-data-dev
-    ports: 
-      - 2181:2181 
-      - 3030:3030
-      - 8081-8083:8081-8083
-      - 9581-9585:9581-9585
-      - 9092:9092
+  # kafka:
+  #   image: lensesio/fast-data-dev
+  #   ports: 
+  #     - 2181:2181 
+  #     - 3030:3030
+  #     - 8081-8083:8081-8083
+  #     - 9581-9585:9581-9585
+  #     - 9092:9092
+  #   networks: 
+  #     - ads_network
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  # zookeeper:
+  #   image: wurstmeister/zookeeper
+  #   ports:
+  #     - 2181:2181
+  #   hostname: zookeeper
+  #   networks: 
+  #     - ads_network
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - 2181:2181
+    hostname: zookeeper
     networks: 
       - ads_network
+
+  kafka:
+    image: wurstmeister/kafka
+    command: [start-kafka.sh]
+    ports:
+      - 9092:9092
+    hostname: kafka
+    networks: 
+      - ads_network
+    environment:
+      KAFKA_CREATE_TOPICS: "user.post_processor.data:1:1,user.session_management.data:1:1,user.data_processor.data:1:1,test.data:1:1" # topic:partition:replicas
+      KAFKA_ADVERTISED_HOST_NAME: kafka # docker-machine ip
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_PORT: 9092
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
 
   api-gateway:
     build: './APIGateway'
@@ -26,6 +59,7 @@ services:
       - data-retriever
       - post-processor
       - data-processor
+    restart: unless-stopped
 
   user-management:
     build: './UserManagement'
@@ -59,6 +93,7 @@ services:
       - ads_network
     depends_on: 
       - kafka
+    restart: unless-stopped
 
   post-processor:
     build: './PostProcessor'
