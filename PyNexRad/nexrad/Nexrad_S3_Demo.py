@@ -135,9 +135,17 @@ def plot_graph(msg):
 
 
 # msg='2019/06/26/KVWX/KVWX20190626_221105_V06'
-client = KafkaClient(hosts='kafka:9092')
-topic = client.topics['user.data_processor.data']
-consumer = topic.get_simple_consumer()
+isFailure = True
+while(isFailure):
+    try:
+        client = KafkaClient(hosts="kafka:9092")
+        topic = client.topics['user.data_processor.data']
+        consumer = topic.get_simple_consumer()
+        isFailure = False
+    except:
+        print("An exception occurred")
+        isFailure = True
+
 while True:
     msg = consumer.consume()
     print("%s [key=%s, id=%s, offset=%s]" %
