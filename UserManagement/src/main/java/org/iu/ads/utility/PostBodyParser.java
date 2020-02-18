@@ -29,7 +29,9 @@ public class PostBodyParser {
         try {
             JSONObject userDetails = (JSONObject) new JSONParser().parse(body);
             for(Object key: userDetails.keySet()) {
-                parameterMap.put((String)key, (String)userDetails.get(key));
+                if(userDetails.get(key) instanceof String) {
+                    parameterMap.put((String)key, (String)userDetails.get(key));
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
