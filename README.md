@@ -15,6 +15,14 @@ What things you need to install the software and how to install them
 ## System Architecture
 ![Image description](https://cdn.discordapp.com/attachments/394719662086291466/679153099763351562/image0.jpg)
 
+## API GateWay
+
+API gateway takes care of routing the requests from UI to the backend microservices. It adds a level of masking and abstraction.
+
+## Data Retrieval
+
+This service retrieves current weather data from an api and provides data to front end to show on landing page.
+
 ## User Management
 
 User Management microservice takes care of login, signup and the verification of each request before api gateway produces to a kafka topic making sure every request is from an authenticated user.
@@ -42,6 +50,9 @@ Currently, this can be done either via a RestEndpoint or through Kafka.
 
 The DB used for this microservice is MongoDB.
 
+## Modeling service
+
+This service majorly takes in user query request from the front end and gets that file from the Amazon data service, it also models the data from the file and stores it in A url. This url is image hosting service provided by imgr
 
 ## Post Processing
 
