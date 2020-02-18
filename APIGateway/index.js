@@ -34,7 +34,7 @@ app.post("/dataprocessor", (req, res) => {
       var url = req.body.fileloc;
       console.log("data retrieval req with url " + req.body.fileloc);
       (Producer = kafka.Producer),
-        (client = new kafka.KafkaClient("kafka:2181")),
+        (client = new kafka.KafkaClient({kafkaHost: 'kafka:9092'})),
         (producer = new Producer(client));
       let count = 0;
 

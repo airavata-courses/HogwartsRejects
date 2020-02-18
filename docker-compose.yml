@@ -30,7 +30,7 @@ services:
   user-management:
     build: './UserManagement'
     ports:
-      - 3000:3000
+      - 3004:3000
     depends_on: 
       - user-management-db
     networks: 
