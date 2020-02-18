@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -24,6 +24,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/Inbox";
 import { useHistory, withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -87,7 +88,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function NavBar() {
+function NavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -180,7 +181,16 @@ function NavBar() {
     }
     setState({ ...state, [side]: open });
   };
+  const isLogged = useSelector(state => state.isLogged);
 
+  useEffect(() => {
+    console.log(isLogged);
+    if(isLogged==false){
+      props.history.push('/')
+    window.location.reload();
+
+    }
+  }, []);
   const sideList = side => (
     <div
       className={classes.list}
@@ -193,7 +203,7 @@ function NavBar() {
       <br />
       <Divider />
       <List>
-        <ListItem button onClick={()=>{props.history.push}}>
+        <ListItem button component={Link} to="/dashboard/dataselection">
           <ListItemText primary="Data Selection" />
         </ListItem>
         <ListItem button component={Link} to="/dashboard/pastactivity">
@@ -280,4 +290,4 @@ function NavBar() {
     </div>
   );
 }
-export default withRouter(NavBar)
+export default withRouter(NavBar);

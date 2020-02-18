@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import axios from "axios";
-function DataSelection() {
-  const jwtToken =
-    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSaXNoYWJoIiwiZXhwIjoxNTgxNjU2MzE3LCJpYXQiOjE1ODE2MjAzMTd9._bta8D6RN81QhHJHvxHpyHK1jrPw0SyKBZ9rG7uUTSs2LJN72KI7q5zJWSmzjbepwuHUsHm6xAd1Wl2FPOvnIQ";
+import { useSelector } from "react-redux";
 
+function DataSelection() {
+  const isLogged = useSelector(state => state.isLogged);
   const [state, setState] = useState({
     fileloc: "",
-    jwtToken: jwtToken
+    jwtToken: isLogged
   });
   const handleChange = prop => event => {
     setState({ ...state, [prop]: event.target.value });
