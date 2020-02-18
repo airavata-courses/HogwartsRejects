@@ -79,7 +79,7 @@ function RegisterBox(props) {
     event.preventDefault();
   };
   const handleRegister = event => {
-    axios.post("http://localhost:8090/signup", user).then(res => {
+    axios.post("/api/signup", user).then(res => {
       if (Object.keys(res.data).length == 0) {
         console.log("error");
       } else {

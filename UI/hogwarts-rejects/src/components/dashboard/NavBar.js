@@ -185,9 +185,9 @@ function NavBar(props) {
 
   useEffect(() => {
     console.log(isLogged);
-    if(isLogged==false){
+    if (isLogged == false) {
       props.history.push('/')
-    window.location.reload();
+      window.location.reload();
 
     }
   }, []);
