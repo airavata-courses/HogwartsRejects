@@ -15,7 +15,15 @@ What things you need to install the software and how to install them
 ## System Architecture
 ![Image description](https://cdn.discordapp.com/attachments/394719662086291466/679153099763351562/image0.jpg)
 
-## API GateWay
+## UI Front End
+
+The user interface is made in React Js which creates a virtual DOM different than the browser DOM to show the entire website.
+
+## Nginx
+
+The user interface is served by Nginx which is used to host the front end created by the React JS framework. Nginx in future can be used to route to multiple copies of API Gateway and act as a load balancer.
+
+## API Gateway
 
 API gateway takes care of routing the requests from UI to the backend microservices. It adds a level of masking and abstraction.
 
