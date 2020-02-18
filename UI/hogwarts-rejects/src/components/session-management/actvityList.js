@@ -71,7 +71,7 @@ function ActivityList() {
   };
   useEffect(() => {
     console.log(jobID);
-    axios.post("http://localhost:8090/fetchURL", jobID).then(res => {
+    axios.post("/api/fetchURL", jobID).then(res => {
       console.log(res);
       setImageURL(res.data);
       handleOpen();
