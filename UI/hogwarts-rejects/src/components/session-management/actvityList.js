@@ -11,6 +11,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -101,33 +102,51 @@ function ActivityList() {
                 color="textSecondary"
                 gutterBottom
               >
-               Job ID:{job.jobID}
+                Job ID:{job.jobID}
               </Typography>
               <Typography variant="h5" component="h2"></Typography>
               <Typography className={classes.pos} color="textSecondary">
-              The Job query you ran:{job.query}
+                The Job query you ran:{job.query}
               </Typography>
               <Typography variant="body2" component="p">
-              Current status of this job:{job.status}
+                Current status of this job:{job.status}
               </Typography>
               <Typography variant="body2" component="p">
-              When you queried this job:{job.queryDate}
+                When you queried this job:{job.queryDate}
               </Typography>
             </CardContent>
             <CardActions>
-            <Button
-            style={{ marginLeft: "55vh" }}
-            onClick={() => {
-              loadImage(job.jobID);
-            }}
-            color="primary"
-          >
-            Load this img!
-          </Button>
+              {job.status == "MODELING_IN_PROGRESS" && (
+                <Button
+                  style={{ marginLeft: "55vh" }}
+                  onClick={() => {
+                    loadImage(job.jobID);
+                  }}
+                  color="primary"
+                >
+                  Load this img!
+                </Button>
+              )}
+              {
+                job.status != "MODELING_IN_PROGRESS" && (
+                  <Tooltip title="The image is not ready">
+                    <div>
+                  <Button
+                  disabled
+                    style={{ marginLeft: "55vh" }}
+                    onClick={() => {
+                      loadImage(job.jobID);
+                    }}
+                    color="primary"
+                  >
+                    Load this img!
+                  </Button>
+                  </div>
+                  </Tooltip>
+
+                )}
             </CardActions>
           </Card>
-
-          
         </div>
       ))}
 
