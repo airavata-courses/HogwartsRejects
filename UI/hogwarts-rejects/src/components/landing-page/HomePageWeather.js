@@ -15,6 +15,7 @@ function HomePageWeather(props) {
   const [climate, setClimate] = useState({
   });
   useEffect(() => {
+    console.log("the weather box got "+props.long+" "+props.lat)
     axios
       .get(
         "http://localhost:8090/climate?lon=" +
