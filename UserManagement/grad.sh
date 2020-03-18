@@ -1,1 +1,1 @@
-gradle clean build
+gradle clean build --stacktrace
