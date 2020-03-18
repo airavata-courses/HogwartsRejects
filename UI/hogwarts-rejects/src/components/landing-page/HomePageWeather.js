@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import moment from "moment-timezone"
 import { Row, Col } from "react-bootstrap";
 function HomePageWeather(props) {
-  const long = "-89";
-  const lat = "39";
+  const long = "-86.5264";
+  const lat = "39.1653";
 
   const [climate, setClimate] = useState({
   });
