@@ -19,9 +19,9 @@ function HomePageWeather(props) {
     axios
       .get(
         "/api/climate?lon=" +
-          props.long +
+          long +
           "&lat=" +
-          props.lat +
+          lat +
           "&appid=48df9480a2a09854ca753dd0721d3f64"
       )
       .then(function(res) {
