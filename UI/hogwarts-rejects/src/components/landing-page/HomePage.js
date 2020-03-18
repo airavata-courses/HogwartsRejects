@@ -76,10 +76,10 @@ function HomePage(props) {
 
 {
 // long&&lat&&
-props.coords&&
+true&&
 <HomePageWeather long={props.coords.longitude} lat={props.coords.latitude}/>}
       {
-        !props.coords&&
+        !true&&
       // !long&&!lat&&
       <div><br/><br/><br/><br/><br/><h2 style={{color:"#172b4d",textAlign:"center"}}>Loading your location weather in a Minute </h2> <br/><br/><img src={loadingScreen} style={{width:"70vh",height:"53vh",marginLeft:"12vh"}}/></div>}
       </ReactCSSTransitionGroup>
