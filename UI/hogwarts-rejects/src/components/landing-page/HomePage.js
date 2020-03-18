@@ -46,8 +46,11 @@ function HomePage(props) {
   console.log(long+lat)
  },[long])
  useEffect(()=>{
+  setLat(true)
+  setLong(true)
    console.log(isLogged)
    console.log(props.isGeolocationAvailable+" test new module")
+  //  console.log(props.coords.longitude+" long test")
  })
   return (
     <div style={{ display: "flex" }}>
@@ -75,12 +78,12 @@ function HomePage(props) {
       >
 
 {
-// long&&lat&&
-true&&
-<HomePageWeather long={props.coords.longitude} lat={props.coords.latitude}/>}
+long&&lat&&
+// props.isGeolocationAvailable&&
+<HomePageWeather long={long} lat={lat}/>}
       {
-        !true&&
-      // !long&&!lat&&
+        // !props.isGeolocationAvailable&&
+      !long&&!lat&&
       <div><br/><br/><br/><br/><br/><h2 style={{color:"#172b4d",textAlign:"center"}}>Loading your location weather in a Minute </h2> <br/><br/><img src={loadingScreen} style={{width:"70vh",height:"53vh",marginLeft:"12vh"}}/></div>}
       </ReactCSSTransitionGroup>
         </div>
