@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: data-retriever
+  name: data-retriever
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: data-retriever
+  template:
+    metadata:
+      labels:
+        app: data-retriever
+    spec:
+      containers:
+      - image: docker.io/gkiran292/data-retriever
+        name: data-retriever
+        ports:
+        - containerPort: 3000
+      restartPolicy: Always

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: data-processor
+  name: data-processor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: data-processor
+  template:
+    metadata:
+      labels:
+        app: data-processor
+    spec:
+      containers:
+      - image: docker.io/gkiran292/data-processor
+        name: data-processor
+      restartPolicy: Always
