@@ -11,17 +11,6 @@ group 'SessionManagement'
 version '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-//task fatJar(type: Jar) {
-//    manifest {
-//        attributes 'SessionManagement': 'Gradle jar creation',
-//                'Implementation-Version': version,
-//                'Main-Class': 'com.user.SessionManagementApplication'
-//    }
-//    baseName = project.name
-//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-//    with jar
-//}
-
 repositories {
     mavenCentral()
 }
