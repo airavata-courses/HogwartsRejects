@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class PostBodyParser {
 
     public Map<String, String> getPostBodyInAMap(HttpServletRequest request) {
+
         Map<String, String> postBody = new HashMap<>();
         try {
             populatePostBody(postBody, request.getReader().lines().collect(Collectors.joining()));
