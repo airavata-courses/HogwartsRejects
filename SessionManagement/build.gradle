@@ -7,7 +7,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group 'org.iu.ads'
+group 'SessionManagement'
 version '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
