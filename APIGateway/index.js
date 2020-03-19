@@ -12,93 +12,93 @@ const uuidv4 = require('uuid/v4')
 
 app.use(bp.json());
 app.use(cors());
-const BASE_URL = "http://localhost:8080";
-const api = apiAdapter(BASE_URL);
+// const BASE_URL = "http://localhost:8080";
+// const api = apiAdapter(BASE_URL);
 
 var kafka = require("kafka-node");
 
-app.post("/dataRetrieval", (req, res) => {
-  console.log("data retrieval api hit");
+app.post("/dataprocessor", (req, res) => {
+  console.log("data modelling api accessed");
   var userName
   // console.log(req.body)
   axios
-    .post("http://localhost:8084/verify", {
+    .post("http://user-management:3000/verify", {
       jwt: req.body.jwtToken,
-        })
-    .then(function(response) {
+    })
+    .then(function (response) {
       console.log(response.data.userName);
-      userName=response.data.userName
-    
-  const jobid=uuidv4();
-  console.log(jobid+userName);
-  var url = req.body.fileloc;
-  console.log("data retrieval req with url " + req.body.fileloc);
-  (Producer = kafka.Producer),
-    (client = new kafka.KafkaClient("127.0.0.1:2181")),
-    (producer = new Producer(client));
-  let count = 0;
+      userName = response.data.userName
 
-  // producer.on("ready", function() {
-  //   let count = 0;
+      const jobid = uuidv4();
+      console.log(jobid + userName);
+      var url = req.body.fileloc;
+      console.log("data retrieval req with url " + req.body.fileloc);
+      (Producer = kafka.Producer),
+        (client = new kafka.KafkaClient({kafkaHost: 'kafka:9092'})),
+        (producer = new Producer(client));
+      let count = 0;
 
-  //   console.log("ready to write message in kafka");
-    let msg = {
-      jobid:jobid,
-      url:url,
-      userName:userName,
-    }
+      // producer.on("ready", function() {
+      //   let count = 0;
+
+      //   console.log("ready to write message in kafka");
+      let msg = {
+        jobid: jobid,
+        url: url,
+        userName: userName,
+      }
       payloads = [
-        { topic: "data-retrievalpytest", messages: JSON.stringify(msg), partition: 0, key: "" }
+        { topic: "user.data_processor.data", messages: JSON.stringify(msg), partition: 0, key: "" }
       ];
 
-      producer.send(payloads, function(err, data) {
+      producer.send(payloads, function (err, data) {
         console.log(data);
         count += 1;
       });
       let msgdt = {
-        jobID:jobid,
-        query:url,
-        userName:userName,
-        status:"DATA_RETRIEVED"
-      } 
+        jobID: jobid,
+        query: url,
+        userName: userName,
+        status: "DATA_RETRIEVED"
+      }
       payloads = [
-        { topic: "SessionManagement", messages: JSON.stringify(msgdt), partition: 0, key: "" }
+        { topic: "user.session_management.data", messages: JSON.stringify(msgdt), partition: 0, key: "" }
       ];
 
-      producer.send(payloads, function(err, data) {
+      producer.send(payloads, function (err, data) {
         console.log(data);
         count += 1;
       });
-    res.send();
-  // });
+      res.send();
+      // });
 
-  producer.on("error", function(err) {
-    console.log(err);
-  });
-})
-.catch(function(error) {
-  console.log(error);
-});
+      producer.on("error", function (err) {
+        console.log(err);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 });
 
-app.get("/", (req, res) => {
-  console.log("got req11111 empty / test");
-});
+// app.get("/", (req, res) => {
+//   console.log("got req11111 empty / test");
+// });
 app.post("/login", (req, res) => {
   var username = req.body.email;
   var password = req.body.password;
-  console.log("user login "+username + password);
+  console.log("user login " + username + password);
 
   axios
-    .post("http://localhost:8084/login", {
+    .post("http://user-management:3000/login", {
       userName: username,
       password: password
     })
-    .then(function(response) {
+    .then(function (response) {
       console.log(response.data);
       res.send(response.data);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 });
@@ -106,19 +106,19 @@ app.post("/signup", (req, res) => {
   var username = req.body.email;
   var password = req.body.password;
   var name = req.body.name;
-  console.log("user register "+username + password+name);
+  console.log("user register " + username + password + name);
 
   axios
-    .post("http://localhost:8084/signup", {
+    .post("http://user-management:3000/signup", {
       userName: username,
       password: password,
-      name:name,
+      name: name,
     })
-    .then(function(response) {
+    .then(function (response) {
       console.log(response.data);
       res.send(response.data);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 });
@@ -137,13 +137,13 @@ app.get("/climate", (req, res) => {
   // })
   axios
     .get(
-      "http://localhost:3001/climate?lon=" +
-        req.query.lon +
-        "&lat=" +
-        req.query.lat +
-        "&appid=48df9480a2a09854ca753dd0721d3f64"
+      "http://data-retriever:3000/climate?lon=" +
+      req.query.lon +
+      "&lat=" +
+      req.query.lat +
+      "&appid=48df9480a2a09854ca753dd0721d3f64"
     )
-    .then(function(response) {
+    .then(function (response) {
       console.log(response.data);
       res.send(response.data);
     });
@@ -151,60 +151,60 @@ app.get("/climate", (req, res) => {
 app.post("/fetchURL", (req, res) => {
   console.log("fetch URL hit");
   var userName
-  var jobID=req.body.jobID
+  var jobID = req.body.jobID
   console.log(jobID)
   axios
-    .post("http://localhost:8084/verify", {
+    .post("http://user-management:3000/verify", {
       jwt: req.body.jwtToken,
-        })
-    .then(function(response) {
+    })
+    .then(function (response) {
       console.log(response.data.userName);
-      userName=response.data.userName
+      userName = response.data.userName
       axios
-        .post("http://localhost:8095/postprocessor/fetchURL",{
-        jobID:jobID,
-        userName:userName,
+        .post("http://post-processor:3000/postprocessor/fetchURL", {
+          jobID: jobID,
+          userName: userName,
         })
-        .then(function(respo){
-         console.log(respo.data.hostURL+"fetch url response")
-         res.send(respo.data.hostURL) 
+        .then(function (respo) {
+          console.log(respo.data.hostURL + "fetch url response")
+          res.send(respo.data.hostURL)
         })
-        .catch(function(response){
+        .catch(function (response) {
           console.log(response)
         }
         )
-      })
-        
-
     })
 
-    app.post("/fetchUsers", (req, res) => {
-      console.log("fetch jobs hit");
-      var userName
-      var jobID=req.body.jobID
-      console.log(jobID)
+
+})
+
+app.post("/fetchUsers", (req, res) => {
+  console.log("fetch jobs hit");
+  var userName
+  var jobID = req.body.jobID
+  console.log(jobID)
+  axios
+    .post("http://user-management:3000/verify", {
+      jwt: req.body.jwtToken,
+    })
+    .then(function (response) {
+      console.log(response.data.userName);
+      userName = response.data.userName
       axios
-        .post("http://localhost:8084/verify", {
-          jwt: req.body.jwtToken,
-            })
-        .then(function(response) {
-          console.log(response.data.userName);
-          userName=response.data.userName
-          axios
-            .post("http://localhost:3002/session/fetchUsers",{
-            userName:userName,
-            })
-            .then(function(respo){
-             console.log(respo.data)
-             res.send(respo.data) 
-            })
-            .catch(function(response){
-              console.log(response)
-            }
-            )
-          })
-            
-    
+        .post("http://session-management:3000/session/fetchUsers", {
+          userName: userName,
         })
-  
+        .then(function (respo) {
+          console.log(respo.data)
+          res.send(respo.data)
+        })
+        .catch(function (response) {
+          console.log(response)
+        }
+        )
+    })
+
+
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

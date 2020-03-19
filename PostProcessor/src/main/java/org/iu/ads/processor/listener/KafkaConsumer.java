@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class KafkaConsumer {
 
-    public static final String TOPIC = "PostProcessor";
+    public static final String TOPIC = "user.post_processor.data";
 
     @Autowired
     PostProcessorRepository postProcessorRepository;
@@ -25,7 +25,7 @@ public class KafkaConsumer {
     @Autowired
     KafkaProducer kafkaProducer;
 
-    @KafkaListener(topics = TOPIC, groupId = KafkaConfiguration.POSTPROCESSOR_GROUP)
+    @KafkaListener(topics = TOPIC, groupId = KafkaConfiguration.CONSUMER_GROUP)
     public void consume(String message) {
         JSONObject json = new JSONObject();
         try {

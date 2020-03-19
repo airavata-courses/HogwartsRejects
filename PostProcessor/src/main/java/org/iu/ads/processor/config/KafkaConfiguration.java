@@ -17,15 +17,15 @@ import java.util.Map;
 @Configuration
 public class KafkaConfiguration {
 
-    public static final String SERVER_DETAILS = "kafka_standalone:9092";
-    public static final String POSTPROCESSOR_GROUP = "postprocessor_group";
+    public static final String SERVER_DETAILS = "kafka:9092";
+    public static final String CONSUMER_GROUP = "post_processor_group";
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, SERVER_DETAILS);
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, POSTPROCESSOR_GROUP);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, CONSUMER_GROUP);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
