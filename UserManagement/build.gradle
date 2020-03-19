@@ -15,17 +15,6 @@ repositories {
     mavenCentral()
 }
 
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'UserManagement': 'Gradle jar creation',
-                'Implementation-Version': version,
-                'Main-Class': 'com.user.UserManagementApplication'
-    }
-    baseName = project.name
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
