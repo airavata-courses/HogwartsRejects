@@ -3,7 +3,7 @@ node {
         git branch: 'feature/sessionmanagement', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
-    stage("Gradle clean build") {
+    stage("Gradle build") {
         def gradleHome = tool name:"Gradle51", type: "gradle"
         sh "${gradleHome}/bin/gradle build"
     }
