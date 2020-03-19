@@ -1,0 +1,21 @@
+pipeline {
+    stage("Git clone") {
+        git branch: 'feature/login', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+    }
+    
+    stage("Gradle clean build") {
+        def gradleHome = tool name:"Gradle51", type: "gradle"
+        sh "${gradleHome}/bin/gradle build"
+    }
+    
+    stage("Build Docker Image") {
+         sh "docker build -t vivekshresta/userapp /var/lib/jenkins/workspace/UserManagement/UserManagement/"
+    }
+    
+    stage("Docker image push") {
+        withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
+            sh "docker login -u vivekshresta -p ${DockerPassword}"
+        }
+        sh "docker push vivekshresta/userapp"
+    }
+}
