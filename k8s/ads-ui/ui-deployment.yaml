@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ui
+  name: ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+      - image: docker.io/gkiran292/ads-ui
+        name: ui
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
