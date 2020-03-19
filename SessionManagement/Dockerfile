@@ -10,6 +10,6 @@ EXPOSE 3002
 
 RUN mkdir /app
 
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/sessionapp.jar
+COPY /build/libs/SessionManagement-1.0-SNAPSHOT.jar /app/sessionapp.jar
 
 ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/sessionapp.jar"]
