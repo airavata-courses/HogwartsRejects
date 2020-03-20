@@ -1019,3 +1019,4 @@ MigrationBackup/
 
 docker/
 .terraform/
+*.tfstate*
