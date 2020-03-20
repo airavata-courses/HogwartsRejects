@@ -3,11 +3,9 @@ node {
         git branch: 'feature/postprocessor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
-    stage("Gradle clean build") {
-        sh "cd PostProcessor"
+    stage("Gradle build") {
         def gradleHome = tool name:"Gradle51", type: "gradle"
-        sh "${gradleHome}/bin/gradle clean build"
-        sh "cd .."
+        sh "${gradleHome}/bin/gradle build"
     }
 
     stage("Build Docker Image") {
