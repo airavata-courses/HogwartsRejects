@@ -4,6 +4,5 @@ WORKDIR /app
 ADD . /app
 
 RUN pip3 install -r requirements.txt
-EXPOSE 9092
 ENV NAME opentoAll
 CMD ["python","nexrad/Nexrad_S3_Demo.py"]
