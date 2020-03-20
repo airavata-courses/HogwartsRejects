@@ -17,7 +17,7 @@ node {
     stage('SSH to Kubernetes master') {
          sh '''
 
-         ssh -o StrictHostKeyChecking=no -i ~/.ssh/shresta/id_rsa.pub ubuntu@149.165.171.98
+         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub ubuntu@149.165.171.98
          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
          cd HogwartsRejects/k8s/user-management
 
