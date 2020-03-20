@@ -10,6 +10,6 @@ EXPOSE 3003
 
 RUN mkdir /app
 
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/postprocessor.jar
+COPY --from=build /home/gradle/src/build/libs/PostProcessor-1.0-SNAPSHOT.jar /app/postprocessor.jar
 
 ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/postprocessor.jar"]
