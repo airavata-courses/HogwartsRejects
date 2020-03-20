@@ -13,8 +13,7 @@ import java.util.List;
 public class CORSFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) {
-    }
+    public void init(FilterConfig filterConfig) {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -23,20 +22,19 @@ public class CORSFilter implements Filter {
         allowedDomains.add("http://localhost:3001");
         allowedDomains.add("http://localhost:5000");
 
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "*");
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Credentials", "true");
+        ((HttpServletResponse)response).addHeader("Access-Control-Allow-Methods", "*");
+        ((HttpServletResponse)response).addHeader("Access-Control-Allow-Credentials", "true");
         //((HttpServletResponse)response).addHeader("Access-Control-Expose-Headers", "");
 
-        String requestDomain = ((HttpServletRequest) request).getHeader("Origin");
-        if (allowedDomains.contains(requestDomain)) {
-            ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", requestDomain);
+        String requestDomain = ((HttpServletRequest)request).getHeader("Origin");
+        if(allowedDomains.contains(requestDomain)) {
+            ((HttpServletResponse)response).addHeader("Access-Control-Allow-Origin", requestDomain);
         }
 
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
+        ((HttpServletResponse)response).addHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
         chain.doFilter(request, response);
     }
 
     @Override
-    public void destroy() {
-    }
+    public void destroy() {}
 }
