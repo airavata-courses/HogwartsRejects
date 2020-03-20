@@ -1,0 +1,21 @@
+node {
+    stage("Git clone") {
+        git branch: 'feature/postprocessor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+    }
+
+    stage("Gradle build") {
+        def gradleHome = tool name:"Gradle51", type: "gradle"
+        sh "${gradleHome}/bin/gradle build"
+    }
+
+    stage("Build Docker Image") {
+         sh "docker build -t vivekshresta/postprocessor /var/lib/jenkins/workspace/PostProcessor/PostProcessor/"
+    }
+
+    stage("Docker image push") {
+        withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
+            sh "docker login -u vivekshresta -p ${DockerPassword}"
+        }
+        sh "docker push vivekshresta/postprocessor"
+    }
+}
