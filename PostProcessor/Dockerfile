@@ -10,6 +10,6 @@ EXPOSE 3003
 
 RUN mkdir /app
 
-COPY ../../../jenkins/workspace/PostProcessor@script/PostProcessor/build/libs/PostProcessor-1.0-SNAPSHOT.jar /app/postprocessor.jar
+COPY /build/libs/PostProcessor-1.0-SNAPSHOT.jar /app/postprocessor.jar
 
 ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/postprocessor.jar"]
