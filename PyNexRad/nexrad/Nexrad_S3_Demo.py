@@ -36,25 +36,19 @@ def on_send_error(excp):
 isFailure = True
 while(isFailure):
     try:
-<<<<<<< HEAD
         # client = KafkaClient(hosts="kafka:9092")
         # topic = client.topics['user.data_processor.data']
         # consumer = topic.get_simple_consumer()
-        producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
+        producer = KafkaProducer(bootstrap_servers=['kafka-service:9092'],
                          value_serializer=lambda x: 
                          json.dumps(x).encode('utf-8'))
         consumer = KafkaConsumer(
             "user.data_processor.data",
-            bootstrap_servers=['localhost:9092'],
+            bootstrap_servers=['kafka-service:9092'],
             auto_offset_reset='earliest',
             enable_auto_commit=True,
             group_id='user.data_processor.group',
             value_deserializer=lambda x: json.loads(x.decode('utf-8')))
-=======
-        client = KafkaClient(hosts="kafka-service:9092")
-        topic = client.topics['user.data_processor.data']
-        consumer = topic.get_simple_consumer()
->>>>>>> 19e3e8629672aed5d5709037dba32d683e3e11a4
         isFailure = False
     except:
         print("An exception occurred, kafka not connected")
