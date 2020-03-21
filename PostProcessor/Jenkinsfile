@@ -1,0 +1,30 @@
+node {
+    stage("Git clone") {
+        git branch: 'feature/postprocessor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+    }
+
+    stage("Build Docker Image") {
+         sh "docker build -t vivekshresta/postprocessor /var/lib/jenkins/workspace/PostProcessor/PostProcessor/"
+    }
+
+    stage("Docker image push") {
+        withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
+            sh "docker login -u vivekshresta -p ${DockerPassword}"
+        }
+        sh "docker push vivekshresta/postprocessor"
+    }
+    
+     stage('Redeploy Kubernetes') {
+          sh '''
+
+          ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
+          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
+          cd ~/HogwartsRejects/k8s/post-processor &&
+
+          kubectl delete service post-processor &&
+          kubectl delete deployment post-processor &&
+          kubectl apply -f ."
+
+          '''
+      }
+}
