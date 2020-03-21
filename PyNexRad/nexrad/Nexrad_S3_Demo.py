@@ -27,7 +27,7 @@ import plot_graph
 isFailure = True
 while(isFailure):
     try:
-        client = KafkaClient(hosts="kafka:9092")
+        client = KafkaClient(hosts="kafka-service:9092")
         topic = client.topics['user.data_processor.data']
         consumer = topic.get_simple_consumer()
         isFailure = False
