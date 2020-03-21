@@ -11,7 +11,7 @@ node {
         withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
             sh "docker login -u gkiran292 -p ${DockerPassword}"
         }
-        sh "docker push vivekshresta/session-management"
+        sh "docker push gkiran292/session-management"
     }
 
     stage('Redeploy Kubernetes') {
