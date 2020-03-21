@@ -13,4 +13,17 @@ node {
         }
         sh "docker push vivekshresta/postprocessor"
     }
+    
+    stage('Kubernetes deploy') {
+         sh '''
+         ssh -o StrictHostKeyChecking=no -i ~/hogwarts.pem ubuntu@149.165.171.174
+         rm -rf ~/HogwartsRejects
+         git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
+         cd HogwartsRejects/k8s/post-processor
+         kubectl delete service post-processor &&
+         kubectl delete deployment post-processor &&
+         kubectl apply -f ."
+         rm -rf ~/HogwartsRejects
+         '''
+     }
 }
