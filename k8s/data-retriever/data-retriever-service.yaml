@@ -5,7 +5,6 @@ metadata:
     app: data-retriever
   name: data-retriever
 spec:
-  type: LoadBalancer
   ports:
   - name: "3002"
     port: 3002

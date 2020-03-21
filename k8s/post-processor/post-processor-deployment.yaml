@@ -5,7 +5,7 @@ metadata:
     app: post-processor
   name: post-processor
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: post-processor
