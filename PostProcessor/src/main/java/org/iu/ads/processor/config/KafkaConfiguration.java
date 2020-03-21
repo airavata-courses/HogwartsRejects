@@ -17,7 +17,7 @@ import java.util.Map;
 @Configuration
 public class KafkaConfiguration {
 
-    public static final String SERVER_DETAILS = "kafka:9092";
+    public static final String SERVER_DETAILS = "kafka-service:9092";
     public static final String CONSUMER_GROUP = "post_processor_group";
 
     @Bean
