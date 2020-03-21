@@ -12,6 +12,6 @@ spec:
     protocol: TCP
     targetPort: 9092
   selector:
-    app: kafka
+    app: kafka-1
     id: "1"
   type: LoadBalancer
