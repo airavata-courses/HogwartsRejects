@@ -1,6 +1,6 @@
 node {
     stage("Git clone") {
-        git branch: 'feature/sessionmanagement', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+        git branch: 'master-session-management', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Gradle build") {
