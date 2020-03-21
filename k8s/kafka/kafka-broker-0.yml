@@ -25,4 +25,4 @@ spec:
         - name: KAFKA_BROKER_ID
           value: "0"
         - name: KAFKA_CREATE_TOPICS
-          value: "user.post_processor.data:5:3,user.session_management.data:5:3,user.data_processor.data:5:3,test.data:5:3"
+          value: "user.post_processor.data:5:3,user.session_management.data:5:3,user.data_processor.data:5:3"
