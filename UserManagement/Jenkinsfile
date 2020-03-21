@@ -1,6 +1,6 @@
 node {
     stage("Git clone") {
-        git branch: 'feature/login', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+        git branch: 'master-user-management', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Build Docker Image") {
@@ -14,7 +14,7 @@ node {
         sh "docker push gkiran292/user-management"
     }
 
-    stage('SSH to Kubernetes master') {
+    stage('Redeploy Kubernetes') {
          sh '''
 
          ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
@@ -24,7 +24,7 @@ node {
          kubectl delete service user-management &&
          kubectl delete deployment user-management &&
          kubectl apply -f ."
-         
+
          '''
      }
 }
