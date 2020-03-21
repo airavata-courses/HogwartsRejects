@@ -42,7 +42,7 @@ while True:
     string_msg = msg.value.decode("utf-8")
     json_msg=json.loads(string_msg)
     print(json_msg.keys())
-    imageurl = plot_graph(json_msg['url'], boto3)
+    imageurl = plot_graph.plot_graph(json_msg['url'])
     print(imageurl)
     ssmgt_msg= {
         "jobID":json_msg['jobid'],
