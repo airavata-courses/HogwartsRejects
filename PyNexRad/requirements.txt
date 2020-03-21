@@ -5,6 +5,4 @@ metpy
 # mpl_toolkits
 numpy
 pyimgur
-pykafka
-pytest
 kafka-python
