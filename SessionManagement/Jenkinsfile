@@ -18,17 +18,18 @@ node {
         }
         sh "docker push vivekshresta/session-management"
     }
-    
-    stage('Kubernetes deploy') {
+
+    stage('Redeploy Kubernetes') {
          sh '''
-         ssh -o StrictHostKeyChecking=no -i ~/hogwarts.pem ubuntu@149.165.171.174
-         rm -rf ~/HogwartsRejects
+
+         ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-         cd HogwartsRejects/k8s/session-management
+         cd ~/HogwartsRejects/k8s/session-management &&
+
          kubectl delete service session-management &&
          kubectl delete deployment session-management &&
          kubectl apply -f ."
-         rm -rf ~/HogwartsRejects
+
          '''
      }
 }
