@@ -4,7 +4,7 @@ node {
     }
 
     stage("Build Docker Image") {
-         sh "docker build -t gkiran292/postprocessor /var/lib/jenkins/workspace/PostProcessor/PostProcessor/"
+         sh "docker build -t gkiran292/post-processor /var/lib/jenkins/workspace/PostProcessor/PostProcessor/"
     }
 
     stage("Docker image push") {
