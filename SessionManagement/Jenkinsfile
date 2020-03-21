@@ -1,11 +1,6 @@
 node {
     stage("Git clone") {
-        git branch: 'feature/sessionmanagement', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
-    }
-
-    stage("Gradle build") {
-        def gradleHome = tool name:"Gradle51", type: "gradle"
-        sh "${gradleHome}/bin/gradle build"
+        git branch: 'master-session-management', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Build Docker Image") {
