@@ -9,18 +9,19 @@ import Typography from '@material-ui/core/Typography';
 import moment from "moment-timezone"
 import { Row, Col } from "react-bootstrap";
 function HomePageWeather(props) {
-  const long = "-89";
-  const lat = "39";
+  const long = "-86.5264";
+  const lat = "39.1653";
 
   const [climate, setClimate] = useState({
   });
   useEffect(() => {
+    console.log("the weather box got "+props.long+" "+props.lat)
     axios
       .get(
         "/api/climate?lon=" +
-          props.long +
+          long +
           "&lat=" +
-          props.lat +
+          lat +
           "&appid=48df9480a2a09854ca753dd0721d3f64"
       )
       .then(function(res) {

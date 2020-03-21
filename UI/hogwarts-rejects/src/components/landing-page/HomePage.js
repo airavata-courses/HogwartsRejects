@@ -5,8 +5,9 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group"; // ES6
 import loadingScreen from "../../images/Loading3.gif"
 import HomePageWeather from "./HomePageWeather"
 import {useSelector} from 'react-redux'
+import { geolocated } from "react-geolocated";
 
-function HomePage() {
+function HomePage(props) {
   const isLogged = useSelector(state=>state.isLogged)
   const [long, setLong] = useState(false);
   const [lat, setLat] = useState(false);
@@ -22,21 +23,34 @@ function HomePage() {
     setShowLogin(true);
     setShowRegister(false);
   };
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(displayLocationInfo);
-  }
-  function displayLocationInfo(position) {
-    const a = position.coords.longitude;
-    const b = position.coords.latitude;
-    setLat(b);
-    setLong(a);
-    console.log(`longitude: ${a} | latitude: ${b}`);
-  }
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(displayLocationInfo);
+  // }
+  // function displayLocationInfo(position) {
+  //   const a = position.coords.longitude;
+  //   const b = position.coords.latitude;
+  //   setLat(b);
+  //   setLong(a);
+  //   console.log(`longitude: ${a} | latitude: ${b}`);
+  // }
+
+  useEffect(()=>{
+    // const a = props.coords.longitude
+    // const b = props.coords.latitude
+    // setLat(b);
+    // setLong(a);
+    // console.log(`longitude: ${a} | latitude: ${b}`);
+    console.log(props.coords)
+   },[props.coords])
  useEffect(()=>{
   console.log(long+lat)
  },[long])
  useEffect(()=>{
+  setLat(true)
+  setLong(true)
    console.log(isLogged)
+   console.log(props.isGeolocationAvailable+" test new module")
+  //  console.log(props.coords.longitude+" long test")
  })
   return (
     <div style={{ display: "flex" }}>
@@ -65,11 +79,19 @@ function HomePage() {
 
 {
 long&&lat&&
+// props.isGeolocationAvailable&&
 <HomePageWeather long={long} lat={lat}/>}
-      {!long&&!lat&&<div><br/><br/><br/><br/><br/><h2 style={{color:"#172b4d",textAlign:"center"}}>Loading your location weather in a Minute </h2> <br/><br/><img src={loadingScreen} style={{width:"70vh",height:"53vh",marginLeft:"12vh"}}/></div>}
+      {
+        // !props.isGeolocationAvailable&&
+      !long&&!lat&&
+      <div><br/><br/><br/><br/><br/><h2 style={{color:"#172b4d",textAlign:"center"}}>Loading your location weather in a Minute </h2> <br/><br/><img src={loadingScreen} style={{width:"70vh",height:"53vh",marginLeft:"12vh"}}/></div>}
       </ReactCSSTransitionGroup>
         </div>
   );
 }
-
-export default HomePage;
+export default geolocated({
+  positionOptions: {
+      enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(HomePage);
