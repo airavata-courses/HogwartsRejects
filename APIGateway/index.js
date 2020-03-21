@@ -22,7 +22,7 @@ app.post("/dataprocessor", (req, res) => {
   var userName
   // console.log(req.body)
   axios
-    .post("http://user-management:3000/verify", {
+    .post("http://user-management:3004/verify", {
       jwt: req.body.jwtToken,
     })
     .then(function (response) {
@@ -34,7 +34,7 @@ app.post("/dataprocessor", (req, res) => {
       var url = req.body.fileloc;
       console.log("data retrieval req with url " + req.body.fileloc);
       (Producer = kafka.Producer),
-        (client = new kafka.KafkaClient({kafkaHost: 'kafka:9092'})),
+        (client = new kafka.KafkaClient({kafkaHost: 'kafka-service:9092'})),
         (producer = new Producer(client));
       let count = 0;
 
@@ -90,7 +90,7 @@ app.post("/login", (req, res) => {
   console.log("user login " + username + password);
 
   axios
-    .post("http://user-management:3000/login", {
+    .post("http://user-management:3004/login", {
       userName: username,
       password: password
     })
@@ -109,7 +109,7 @@ app.post("/signup", (req, res) => {
   console.log("user register " + username + password + name);
 
   axios
-    .post("http://user-management:3000/signup", {
+    .post("http://user-management:3004/signup", {
       userName: username,
       password: password,
       name: name,
@@ -137,7 +137,7 @@ app.get("/climate", (req, res) => {
   // })
   axios
     .get(
-      "http://data-retriever:3000/climate?lon=" +
+      "http://data-retriever:3002/climate?lon=" +
       req.query.lon +
       "&lat=" +
       req.query.lat +
@@ -154,14 +154,14 @@ app.post("/fetchURL", (req, res) => {
   var jobID = req.body.jobID
   console.log(jobID)
   axios
-    .post("http://user-management:3000/verify", {
+    .post("http://user-management:3004/verify", {
       jwt: req.body.jwtToken,
     })
     .then(function (response) {
       console.log(response.data.userName);
       userName = response.data.userName
       axios
-        .post("http://post-processor:3000/postprocessor/fetchURL", {
+        .post("http://post-processor:3003/postprocessor/fetchURL", {
           jobID: jobID,
           userName: userName,
         })
@@ -184,14 +184,14 @@ app.post("/fetchUsers", (req, res) => {
   var jobID = req.body.jobID
   console.log(jobID)
   axios
-    .post("http://user-management:3000/verify", {
+    .post("http://user-management:3004/verify", {
       jwt: req.body.jwtToken,
     })
     .then(function (response) {
       console.log(response.data.userName);
       userName = response.data.userName
       axios
-        .post("http://session-management:3000/session/fetchUsers", {
+        .post("http://session-management:3001/session/fetchUsers", {
           userName: userName,
         })
         .then(function (respo) {
