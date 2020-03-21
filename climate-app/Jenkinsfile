@@ -13,16 +13,18 @@ node {
         }
         sh "docker push gkiran292/data-retriever"
     }
+    
+    stage('Redeploy Kubernetes') {
+          sh '''
 
-    stage('SSH to Kubernetes master') {
-         sh '''
-         ssh -tt -o StrictHostKeyChecking=no -i ~/hogwarts.pem ubuntu@149.165.171.174
-         git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-         cd HogwartsRejects/k8s/data-retriever
-         kubectl delete service data-retriever &&
-         kubectl delete deployment data-retriever &&
-         kubectl apply -f ."
-         rm -rf ~/HogwartsRejects
-         '''
+          ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
+          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
+          cd ~/HogwartsRejects/k8s/data-retriever &&
+
+          kubectl delete service data-retriever &&
+          kubectl delete deployment data-retriever &&
+          kubectl apply -f ."
+
+          '''
      }
 }
