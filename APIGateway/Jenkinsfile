@@ -4,13 +4,13 @@ node {
     }
 
     stage("Build Docker Image") {
-         sh "docker build -t vivekshresta/api-gateway /var/lib/jenkins/workspace/APIGateway/APIGateway/"
+         sh "docker build -t gkiran292/api-gateway /var/lib/jenkins/workspace/APIGateway/APIGateway/"
     }
 
     stage("Docker image push") {
         withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
-            sh "docker login -u vivekshresta -p ${DockerPassword}"
+            sh "docker login -u gkiran292 -p ${DockerPassword}"
         }
-        sh "docker push vivekshresta/api-gateway"
+        sh "docker push gkiran292/api-gateway"
     }
 }
