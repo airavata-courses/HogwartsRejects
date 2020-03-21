@@ -7,3 +7,4 @@ numpy
 pyimgur
 pykafka
 pytest
+kafka-python

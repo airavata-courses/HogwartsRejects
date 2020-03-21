@@ -17,10 +17,10 @@ def imgur_upload(file_name):
     PATH = file_name
     im = pyimgur.Imgur(imgur_client_id)
     uploaded_img = im.upload_image(PATH, title="Uploaded with PyImgur")
-    print(uploaded_img.title)
-    print(uploaded_img.link)
-    print(uploaded_img.size)
-    print(uploaded_img.type)
+    # print(uploaded_img.title)
+    # print(uploaded_img.link)
+    # print(uploaded_img.size)
+    # print(uploaded_img.type)
     return uploaded_img.link
 
 
@@ -113,7 +113,7 @@ def plot_graph(msg):
                                             user_agent_extra='Resource'))
     bucket = s3.Bucket('noaa-nexrad-level2')
     for obj in bucket.objects.filter(Prefix=msg):
-        print(obj.key)
+        # print(obj.key)
         # Use MetPy to read the file
         f = Level2File(obj.get()['Body'])
 
