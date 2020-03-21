@@ -14,16 +14,17 @@ node {
         sh "docker push gkiran292/api-gateway"
     }
     
-    stage('SSH to Kubernetes master') {
-         sh '''
-         ssh -o StrictHostKeyChecking=no -i ~/hogwarts.pem ubuntu@149.165.171.174
-         rm -rf ~/HogwartsRejects
-         git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-         cd HogwartsRejects/k8s/api-gateway
-         kubectl delete service api-gateway &&
-         kubectl delete deployment api-gateway &&
-         kubectl apply -f ."
-         rm -rf ~/HogwartsRejects
-         '''
+    stage('Redeploy Kubernetes') {
+          sh '''
+
+          ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
+          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
+          cd ~/HogwartsRejects/k8s/api-gateway &&
+
+          kubectl delete service api-gateway &&
+          kubectl delete deployment api-gateway &&
+          kubectl apply -f ."
+
+          '''
      }
 }
