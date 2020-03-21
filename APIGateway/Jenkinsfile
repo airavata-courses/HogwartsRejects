@@ -1,6 +1,6 @@
 node {
     stage("Git clone") {
-        git branch: 'feature-api-gw', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+        git branch: 'master-api-gateway', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Build Docker Image") {
