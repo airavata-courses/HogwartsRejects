@@ -1,12 +1,9 @@
 ---
 kind: Deployment
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 metadata:
   name: kafka-broker-0
 spec:
-  selector:
-    matchLabels:
-      app: kafka-broker-0
   template:
     metadata:
       labels:
@@ -22,10 +19,10 @@ spec:
         - name: KAFKA_ADVERTISED_PORT
           value: "9092"
         - name: KAFKA_ADVERTISED_HOST_NAME
-          value: "kafka"
+          value: "kafka-service"
         - name: KAFKA_ZOOKEEPER_CONNECT
           value: zoo1:2181
         - name: KAFKA_BROKER_ID
           value: "0"
         - name: KAFKA_CREATE_TOPICS
-          value: "user.post_processor.data:5:3,user.session_management.data:5:3,user.data_processor.data:5:3"
+          value: "data-retrieval-service:5:3,model-execution-service:5:3,user-management-service:5:3,post-processing-service:5:3,session-management-service:5:3,api-gateway-service:1:3,front-end-data-retrieval-service:5:3"
