@@ -6,3 +6,4 @@ metpy
 numpy
 pyimgur
 pykafka
+pytest
