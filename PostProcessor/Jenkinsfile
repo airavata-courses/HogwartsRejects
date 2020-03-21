@@ -1,17 +1,17 @@
 node {
     stage("Git clone") {
-        git branch: 'feature/postprocessor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+        git branch: 'master-post-processor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Build Docker Image") {
-         sh "docker build -t vivekshresta/postprocessor /var/lib/jenkins/workspace/PostProcessor/PostProcessor/"
+         sh "docker build -t gkiran292/post-processor /var/lib/jenkins/workspace/PostProcessor/PostProcessor/"
     }
 
     stage("Docker image push") {
         withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
-            sh "docker login -u vivekshresta -p ${DockerPassword}"
+            sh "docker login -u gkiran292 -p ${DockerPassword}"
         }
-        sh "docker push vivekshresta/postprocessor"
+        sh "docker push gkiran292/post-processor"
     }
     
      stage('Redeploy Kubernetes') {
