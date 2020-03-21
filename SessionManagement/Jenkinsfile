@@ -9,14 +9,14 @@ node {
     }
 
     stage("Build Docker Image") {
-         sh "docker build -t vivekshresta/sessionapp /var/lib/jenkins/workspace/SessionManagement/SessionManagement/"
+         sh "docker build -t gkiran292/session-management /var/lib/jenkins/workspace/SessionManagement/SessionManagement/"
     }
 
     stage("Docker image push") {
         withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
-            sh "docker login -u vivekshresta -p ${DockerPassword}"
+            sh "docker login -u gkiran292 -p ${DockerPassword}"
         }
-        sh "docker push vivekshresta/sessionapp"
+        sh "docker push vivekshresta/session-management"
     }
     
     stage('Kubernetes deploy') {
