@@ -4,6 +4,9 @@ apiVersion: apps/v1
 metadata:
   name: kafka-broker-0
 spec:
+  selector:
+    matchLabels:
+      app: kafka-broker-0
   template:
     metadata:
       labels:
