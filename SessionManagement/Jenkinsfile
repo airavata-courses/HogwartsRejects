@@ -3,11 +3,6 @@ node {
         git branch: 'master-session-management', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
-    stage("Gradle build") {
-        def gradleHome = tool name:"Gradle51", type: "gradle"
-        sh "${gradleHome}/bin/gradle build"
-    }
-
     stage("Build Docker Image") {
          sh "docker build -t gkiran292/session-management /var/lib/jenkins/workspace/SessionManagement/SessionManagement/"
     }
