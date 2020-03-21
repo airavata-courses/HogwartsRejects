@@ -17,15 +17,14 @@ node {
     stage('SSH to Kubernetes master') {
          sh '''
 
-         ssh -i ~/hogwarts.pem ubuntu@149.165.171.174
-         "rm -rf ~/HogwartsRejects &&
+         ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
          cd ~/HogwartsRejects/k8s/user-management &&
 
          kubectl delete service user-management &&
          kubectl delete deployment user-management &&
          kubectl apply -f ."
-
+         
          '''
      }
 }
