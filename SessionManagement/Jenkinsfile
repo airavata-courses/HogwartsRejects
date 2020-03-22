@@ -24,7 +24,7 @@ node {
          kubectl delete service session-management &&
          kubectl delete deployment session-management &&
          sleep 1m
-         kubectl apply -f ."
+         kubectl create -f ."
 
          '''
      }
