@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: post-processor
+  name: post-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-processor
+  template:
+    metadata:
+      labels:
+        app: post-processor
+    spec:
+      containers:
+      - image: docker.io/gkiran292/post-processor
+        name: post-processor
+        ports:
+        - containerPort: 3000
+      restartPolicy: Always

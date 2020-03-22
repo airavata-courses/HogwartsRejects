@@ -29,9 +29,9 @@ public class PostBodyParser {
     protected void populatePostBody(Map<String, String> parameterMap, String body) {
         try {
             JSONObject userDetails = (JSONObject) new JSONParser().parse(body);
-            for (Object key : userDetails.keySet()) {
-                if (userDetails.get(key) instanceof String) {
-                    parameterMap.put((String) key, (String) userDetails.get(key));
+            for(Object key: userDetails.keySet()) {
+                if(userDetails.get(key) instanceof String) {
+                    parameterMap.put((String)key, (String)userDetails.get(key));
                 }
             }
         } catch (ParseException e) {
