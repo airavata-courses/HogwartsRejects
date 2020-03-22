@@ -3,6 +3,6 @@ RUN pip install --upgrade pip
 WORKDIR /app
 ADD . /app
 
-RUN pip3 install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 ENV NAME opentoAll
 CMD ["python","nexrad/Nexrad_S3_Demo.py"]
