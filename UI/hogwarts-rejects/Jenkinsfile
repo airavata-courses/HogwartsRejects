@@ -21,7 +21,8 @@ node {
           git clone --single-branch --branch master-UI https://github.com/airavata-courses/HogwartsRejects.git &&
           cd ~/HogwartsRejects/UI/hogwarts-rejects &&
 
-          kubectl delete deployment ads-ui &&
+          kubectl delete service ads-ui &&
+          kubectl delete deployment ui &&
           kubectl apply -f ."
 
           '''
