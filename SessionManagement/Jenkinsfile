@@ -4,7 +4,7 @@ node {
     }
 
     stage("Build Docker Image") {
-         sh "docker build -t gkiran292/session-management /var/lib/jenkins/workspace/SessionManagement/SessionManagement/"
+         sh "docker build -t docker.io/gkiran292/session-management /var/lib/jenkins/workspace/SessionManagement/SessionManagement/"
     }
 
     stage("Docker image push") {
