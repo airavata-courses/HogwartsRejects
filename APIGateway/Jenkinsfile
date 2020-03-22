@@ -18,8 +18,8 @@ node {
           sh '''
 
           ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
-          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-          cd ~/HogwartsRejects/k8s/api-gateway &&
+          git clone --single-branch --branch master-api-gateway https://github.com/airavata-courses/HogwartsRejects.git &&
+          cd ~/HogwartsRejects/APIGateway &&
 
           kubectl delete service api-gateway &&
           kubectl delete deployment api-gateway &&
