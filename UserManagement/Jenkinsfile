@@ -19,7 +19,7 @@ node {
 
          ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
          git clone --single-branch --branch master-user-management https://github.com/airavata-courses/HogwartsRejects.git &&
-         cd ~/HogwartsRejects &&
+         cd ~/HogwartsRejects/UserManagement &&
 
          kubectl delete service user-management &&
          kubectl delete deployment user-management &&
