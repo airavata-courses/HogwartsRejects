@@ -7,7 +7,6 @@ from metpy.plots import add_timestamp, ctables
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 import pyimgur
-from pykafka import KafkaClient
 import json
 import pickle
 
