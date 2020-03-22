@@ -20,7 +20,8 @@ import java.util.Map;
 @Configuration
 public class KafkaConfiguration {
 
-    public static final String SERVER_DETAILS = "kafka_standalone:9092";
+    public static final String SERVER_DETAILS = "kafka-service:9092";
+    public static final String CONSUMER_GROUP = "session_management_group";
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
@@ -28,7 +29,7 @@ public class KafkaConfiguration {
 
         //TODO: Check the config with the team
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, SERVER_DETAILS);
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_sm");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, CONSUMER_GROUP);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
