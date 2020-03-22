@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user-management
+  name: user-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-management
+  template:
+    metadata:
+      labels:
+        app: user-management
+    spec:
+      containers:
+      - image: docker.io/gkiran292/user-management
+        name: user-management
+        ports:
+        - containerPort: 3000
+      restartPolicy: Always
