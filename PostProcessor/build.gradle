@@ -1,38 +1,19 @@
 plugins {
     id 'org.springframework.boot' version '2.2.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'java'
     id 'com.palantir.docker' version '0.22.1'
+    id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
 
 group 'PostProcessor'
 version '1.0-SNAPSHOT'
-
 sourceCompatibility = '1.8'
-
-// task fatJar(type: Jar) {
-//     manifest {
-//         attributes 'PostProcessor': 'Gradle jar creation',
-//                 'Implementation-Version': version,
-//                 'Main-Class': 'com.user.PostProcessorApplication'
-//     }
-//     baseName = project.name
-//     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-//     with jar
-// }
 
 repositories {
     mavenCentral()
 }
-
-// docker {
-//     name "postprocessorapp"
-//     dockerfile file('Dockerfile')
-//     copySpec.from(jar).rename(".*","PostProcessor.jar")
-//     buildArgs(['JAR_FILE': "PostProcessor.jar"])
-// }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
