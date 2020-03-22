@@ -39,7 +39,6 @@ public class KafkaConsumer {
             setSessionData(json, sessionData);
 
             sessionManagementRepository.save(sessionData);
-
         } else {
             for(SessionData sessionData : sessionDataList) {
                 if(sessionData.getJobID().equals(json.get(SessionData.JOB_ID))) {
@@ -48,7 +47,6 @@ public class KafkaConsumer {
                     return;
                 }
             }
-
             SessionData sessionData = new SessionData((String)json.get(SessionData.USER_NAME), (String)json.get(SessionData.JOB_ID), (String)json.get(SessionData.STATUS));
             setSessionData(json, sessionData);
 

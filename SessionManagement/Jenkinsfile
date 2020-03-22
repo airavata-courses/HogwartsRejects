@@ -1,0 +1,30 @@
+node {
+    stage("Git clone") {
+        git branch: 'master-session-management', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+    }
+
+    stage("Build Docker Image") {
+         sh "docker build -t gkiran292/session-management /var/lib/jenkins/workspace/SessionManagement/SessionManagement/"
+    }
+
+    stage("Docker image push") {
+        withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
+            sh "docker login -u gkiran292 -p ${DockerPassword}"
+        }
+        sh "docker push gkiran292/session-management"
+    }
+
+    stage('Redeploy Kubernetes') {
+         sh '''
+
+         ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
+         git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
+         cd ~/HogwartsRejects/k8s/session-management &&
+
+         kubectl delete service session-management &&
+         kubectl delete deployment session-management &&
+         kubectl apply -f ."
+
+         '''
+     }
+}
