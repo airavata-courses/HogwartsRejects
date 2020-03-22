@@ -18,8 +18,8 @@ node {
          sh '''
 
          ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
-         git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-         cd ~/HogwartsRejects/k8s/session-management &&
+         git clone --single-branch --branch master-session-management https://github.com/airavata-courses/HogwartsRejects.git &&
+         cd ~/HogwartsRejects/SessionManagement &&
 
          kubectl delete service session-management &&
          kubectl delete deployment session-management &&
