@@ -8,6 +8,7 @@ Accessing data remotely is a powerful tool for big data, such as NEXRAD radar da
 By accessing it in the cloud, you can save time and space from downloading the data locally.
 
 """
+print("Test print to check latest version")
 from kafka import KafkaProducer
 from kafka import KafkaConsumer
 import boto3
