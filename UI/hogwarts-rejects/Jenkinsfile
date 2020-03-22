@@ -23,7 +23,8 @@ node {
 
           kubectl delete service ui &&
           kubectl delete deployment ui &&
-          kubectl apply -f ."
+          kubectl apply -f ui-deployment.yaml &&
+          kubectl apply -f ui-service.yaml"
 
           '''
       }
