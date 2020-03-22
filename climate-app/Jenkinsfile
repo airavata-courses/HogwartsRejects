@@ -1,6 +1,6 @@
 node {
     stage("Git clone") {
-        git branch: 'master-climate-data-retrieval', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+        git branch: 'master-data-retrieval', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Build Docker Image") {
@@ -18,8 +18,8 @@ node {
           sh '''
 
           ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
-          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-          cd ~/HogwartsRejects/k8s/data-retriever &&
+          git clone --single-branch --branch master-data-retrieval https://github.com/airavata-courses/HogwartsRejects.git &&
+          cd ~/HogwartsRejects/climate-app &&
 
           kubectl delete service data-retriever &&
           kubectl delete deployment data-retriever &&
