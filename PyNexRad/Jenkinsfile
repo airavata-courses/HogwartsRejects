@@ -21,7 +21,6 @@ node {
           git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
           cd ~/HogwartsRejects/k8s/data-processor &&
 
-          kubectl delete service data-processor &&
           kubectl delete deployment data-processor &&
           kubectl apply -f ."
 
