@@ -9,6 +9,6 @@ EXPOSE 3000
 
 RUN mkdir /app
 
-COPY --from=build /home/gradle/src/build/libs/UserManagement-1.0-SNAPSHOT.jar /app/userapp.jar
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/userapp.jar
 
 ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/userapp.jar"]
