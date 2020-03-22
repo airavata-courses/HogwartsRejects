@@ -1,6 +1,6 @@
 node {
     stage("Git clone") {
-        git branch: 'feature-python-modeler', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+        git branch: 'master-data-processor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Build Docker Image") {
@@ -13,16 +13,17 @@ node {
         }
         sh "docker push gkiran292/data-processor"
     }
+    
+    stage('Redeploy Kubernetes') {
+          sh '''
 
-    stage('SSH to Kubernetes master') {
-         sh '''
-         ssh -tt -o StrictHostKeyChecking=no -i ~/hogwarts.pem ubuntu@149.165.171.174
-         git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-         cd HogwartsRejects/k8s/data-processor
-         kubectl delete service data-processor &&
-         kubectl delete deployment data-processor &&
-         kubectl apply -f ."
-         rm -rf ~/HogwartsRejects
-         '''
+          ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
+          git clone --single-branch --branch master-data-processor https://github.com/airavata-courses/HogwartsRejects.git &&
+          cd ~/HogwartsRejects/PyNexRad &&
+
+          kubectl delete deployment data-processor &&
+          kubectl apply -f ."
+
+          '''
      }
 }
