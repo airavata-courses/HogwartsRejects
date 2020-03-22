@@ -1,6 +1,6 @@
 node {
     stage("Git clone") {
-        git branch: 'feature-python-modeler', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
+        git branch: 'master-processor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
 
     stage("Build Docker Image") {
