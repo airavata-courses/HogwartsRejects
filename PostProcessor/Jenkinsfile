@@ -18,8 +18,8 @@ node {
           sh '''
 
           ssh -i ~/hogwarts.pem ubuntu@149.165.171.174  " rm -rf ~/HogwartsRejects &&
-          git clone --single-branch --branch develop https://github.com/airavata-courses/HogwartsRejects.git &&
-          cd ~/HogwartsRejects/k8s/post-processor &&
+          git clone --single-branch --branch master-post-processor https://github.com/airavata-courses/HogwartsRejects.git &&
+          cd ~/HogwartsRejects/PostProcessor &&
 
           kubectl delete service post-processor &&
           kubectl delete deployment post-processor &&
