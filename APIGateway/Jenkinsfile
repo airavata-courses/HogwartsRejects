@@ -23,7 +23,8 @@ node {
 
           kubectl delete service api-gateway &&
           kubectl delete deployment api-gateway &&
-          kubectl apply -f ."
+          kubectl apply -f api-gateway-deployment.yaml &&
+          kubectl apply -f api-gateway-service.yaml"
 
           '''
      }
