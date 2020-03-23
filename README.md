@@ -1,5 +1,6 @@
 # HogwartsRejects
 Weather Forecasting API
+
 Wiki: https://github.com/airavata-courses/HogwartsRejects/wiki 
 
 #### Maintained by
