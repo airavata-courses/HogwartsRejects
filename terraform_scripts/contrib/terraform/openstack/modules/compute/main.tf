@@ -13,6 +13,13 @@ resource "openstack_compute_secgroup_v2" "k8s_master" {
     to_port     = "6443"
     cidr        = "0.0.0.0/0"
   }
+
+  rule {
+    ip_protocol = "tcp"
+    from_port   = "30000"
+    to_port     = "32767"
+    cidr        = "0.0.0.0/0"
+  }
 }
 
 resource "openstack_compute_secgroup_v2" "bastion" {
