@@ -25,14 +25,14 @@ kubectl apply -f APIGateway/api-gateway-deployment.yaml
 echo 'ui deployment\n'
 git checkout master-UI
 git pull origin master-UI
-kubectl apply -f UI/hogwartsrejects/ui-service.yaml
-kubectl apply -f UI/hogwartsrejects/ui-deployment.yaml
+kubectl apply -f UI/hogwarts-rejects/ui-service.yaml
+kubectl apply -f UI/hogwarts-rejects/ui-deployment.yaml
 
 #data-retrieval Deployment
 echo 'data-retrieval deployment\n'
-git checkout master-data-retrival
-git pull origin master-data-retrival
-kubectl apply -f climate-app/data-retriver-service.yaml
+git checkout master-data-retrieval
+git pull origin master-data-retrieval
+kubectl apply -f climate-app/data-retriever-service.yaml
 kubectl apply -f climate-app/data-retriever-deployment.yaml
 
 #user-management Deployment
