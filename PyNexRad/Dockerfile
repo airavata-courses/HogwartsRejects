@@ -5,4 +5,5 @@ ADD . /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 ENV NAME opentoAll
+CMD ["pytest"]
 CMD ["python","nexrad/Nexrad_S3_Demo.py"]
