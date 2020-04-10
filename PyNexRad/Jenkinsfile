@@ -3,10 +3,6 @@ node {
         git branch: 'master-data-processor', url: 'https://github.com/airavata-courses/HogwartsRejects.git'
     }
     
-    stage("Run testcases") {
-        sh "pytest /var/lib/jenkins/workspace/ModellingService/PyNexRad/nexrad/test_python.py"
-    }
-
     stage("Build Docker Image") {
          sh "docker build -t gkiran292/data-processor /var/lib/jenkins/workspace/ModellingService/PyNexRad/"
     }
