@@ -4,7 +4,7 @@ node {
     }
     
     stage("Run testcases") {
-        sh "./python -m unittest /var/lib/jenkins/workspace/ModellingService/PyNexRad/nexrad/test_python.py"
+        sh "python -m unittest /var/lib/jenkins/workspace/ModellingService/PyNexRad/nexrad/test_python.py"
     }
 
     stage("Build Docker Image") {
